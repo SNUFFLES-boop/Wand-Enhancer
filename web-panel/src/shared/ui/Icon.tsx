@@ -1,42 +1,64 @@
 import type { ReactNode, SVGProps } from 'react';
 
 export type IconName =
+    | 'activity'
     | 'alert'
+    | 'arrow-down'
     | 'arrow-right'
+    | 'arrow-up'
     | 'atom'
     | 'backpack'
     | 'bolt'
     | 'box'
+    | 'broadcast'
     | 'car'
     | 'chart'
+    | 'check'
     | 'chevron-down'
     | 'chevron-left'
     | 'chevron-right'
+    | 'clock'
+    | 'copy'
     | 'dot'
+    | 'download'
+    | 'eye'
+    | 'eye-off'
     | 'flame'
     | 'gamepad'
     | 'gamepad-variant-outline'
     | 'hammer'
     | 'heart-broken'
+    | 'layout'
+    | 'link'
     | 'list'
     | 'loader'
     | 'map-pin'
     | 'menu'
+    | 'message'
     | 'minus'
+    | 'network'
     | 'package'
+    | 'pause'
     | 'pin'
     | 'pin-off'
-    | 'plug'
     | 'play'
+    | 'plug'
     | 'plus'
+    | 'radar'
+    | 'refresh'
     | 'search'
+    | 'send'
     | 'settings'
+    | 'sliders'
     | 'sparkles'
     | 'star'
     | 'star-filled'
     | 'stop'
     | 'swords'
+    | 'trash'
+    | 'upload'
     | 'user'
+    | 'wand'
     | 'world'
     | 'x';
 
@@ -248,6 +270,152 @@ const ICON_PATHS: Record<IconName, ReactNode> = {
         <>
             <path d="M6 6l12 12" />
             <path d="M18 6 6 18" />
+        </>
+    ),
+    activity: <path d="M3 12h4l3-8 4 16 3-8h4" />,
+    'arrow-down': (
+        <>
+            <path d="M12 5v14" />
+            <path d="m6 13 6 6 6-6" />
+        </>
+    ),
+    'arrow-up': (
+        <>
+            <path d="M12 19V5" />
+            <path d="m6 11 6-6 6 6" />
+        </>
+    ),
+    broadcast: (
+        <>
+            <circle cx="12" cy="12" r="2" />
+            <path d="M16.2 7.8a6 6 0 0 1 0 8.4" />
+            <path d="M7.8 16.2a6 6 0 0 1 0-8.4" />
+            <path d="M19 5a10 10 0 0 1 0 14" />
+            <path d="M5 19A10 10 0 0 1 5 5" />
+        </>
+    ),
+    check: <path d="m5 12 5 5 9-10" />,
+    clock: (
+        <>
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" />
+        </>
+    ),
+    copy: (
+        <>
+            <rect x="9" y="9" width="11" height="11" rx="2" />
+            <path d="M5 15V6a2 2 0 0 1 2-2h8" />
+        </>
+    ),
+    download: (
+        <>
+            <path d="M12 4v11" />
+            <path d="m7 10 5 5 5-5" />
+            <path d="M5 20h14" />
+        </>
+    ),
+    eye: (
+        <>
+            <path d="M2.5 12S6 5 12 5s9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7z" />
+            <circle cx="12" cy="12" r="3" />
+        </>
+    ),
+    'eye-off': (
+        <>
+            <path d="M3 3l18 18" />
+            <path d="M10.6 5.1A9.7 9.7 0 0 1 12 5c6 0 9.5 7 9.5 7a17 17 0 0 1-2.9 3.7" />
+            <path d="M6.3 6.3C3.9 8 2.5 12 2.5 12S6 19 12 19a9 9 0 0 0 4.2-1" />
+            <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+        </>
+    ),
+    layout: (
+        <>
+            <rect x="3" y="4" width="18" height="16" rx="2" />
+            <path d="M3 10h18" />
+            <path d="M10 10v10" />
+        </>
+    ),
+    link: (
+        <>
+            <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" />
+            <path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />
+        </>
+    ),
+    message: (
+        <>
+            <path d="M4 5h16v11H9l-5 4z" />
+            <path d="M8 9.5h8" />
+            <path d="M8 12.5h5" />
+        </>
+    ),
+    network: (
+        <>
+            <rect x="9" y="3" width="6" height="5" rx="1" />
+            <rect x="3" y="16" width="6" height="5" rx="1" />
+            <rect x="15" y="16" width="6" height="5" rx="1" />
+            <path d="M12 8v4" />
+            <path d="M6 16v-2h12v2" />
+        </>
+    ),
+    pause: (
+        <>
+            <path d="M9 6v12" />
+            <path d="M15 6v12" />
+        </>
+    ),
+    radar: (
+        <>
+            <circle cx="12" cy="12" r="9" />
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 12 18.5 5.5" />
+            <circle cx="12" cy="12" r="1" fill="currentColor" />
+        </>
+    ),
+    refresh: (
+        <>
+            <path d="M20 11a8 8 0 0 0-14.3-4.6L4 8" />
+            <path d="M4 4v4h4" />
+            <path d="M4 13a8 8 0 0 0 14.3 4.6L20 16" />
+            <path d="M20 20v-4h-4" />
+        </>
+    ),
+    send: (
+        <>
+            <path d="M21 3 10 14" />
+            <path d="m21 3-7 18-4-7-7-4z" />
+        </>
+    ),
+    sliders: (
+        <>
+            <path d="M4 7h10" />
+            <path d="M18 7h2" />
+            <circle cx="16" cy="7" r="2" />
+            <path d="M4 17h4" />
+            <path d="M12 17h8" />
+            <circle cx="10" cy="17" r="2" />
+        </>
+    ),
+    trash: (
+        <>
+            <path d="M4 7h16" />
+            <path d="M9 7V4h6v3" />
+            <path d="M6 7l1 13h10l1-13" />
+        </>
+    ),
+    upload: (
+        <>
+            <path d="M12 16V5" />
+            <path d="m7 10 5-5 5 5" />
+            <path d="M5 20h14" />
+        </>
+    ),
+    wand: (
+        <>
+            <path d="m4 20 11-11" />
+            <path d="m13 7 2-2 4 4-2 2" />
+            <path d="M18 2v2" />
+            <path d="M21 5h-2" />
+            <path d="M8 3v2" />
         </>
     ),
 };

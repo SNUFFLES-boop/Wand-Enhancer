@@ -11,10 +11,22 @@ const INCOMING_TYPES = new Set<IncomingMessage['type']>([
     'trainer_changed',
     'set_value_result',
     'remote_command_result',
+    'osc_state',
+    'osc_status',
+    'osc_activity',
+    'osc_command_result',
     'error',
 ]);
 
-const OUTGOING_TYPES = new Set<OutgoingMessage['type']>(['hello', 'set_value', 'remote_command']);
+const OUTGOING_TYPES = new Set<OutgoingMessage['type']>([
+    'hello',
+    'set_value',
+    'remote_command',
+    'osc_config',
+    'osc_command',
+]);
+
+const OSC_COMMAND_ACTIONS = new Set(['send', 'chatbox_send', 'chatbox_clear', 'reset_stats']);
 
 export function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null;
@@ -78,6 +90,18 @@ export function isIncomingMessage(value: unknown): value is IncomingMessage {
                 hasBoolean(payload, 'ok') &&
                 (payload.action === 'launch' || payload.action === 'stop')
             );
+        case 'osc_state':
+            return (
+                isRecord(payload.config) &&
+                isOscStatus(payload.status) &&
+                Array.isArray(payload.activity)
+            );
+        case 'osc_status':
+            return isOscStatus(payload.status);
+        case 'osc_activity':
+            return Array.isArray(payload.entries);
+        case 'osc_command_result':
+            return hasBoolean(payload, 'ok') && OSC_COMMAND_ACTIONS.has(String(payload.action));
         case 'error':
             return hasString(payload, 'code') && hasString(payload, 'message');
         default:
@@ -103,7 +127,29 @@ export function isOutgoingMessage(value: unknown): value is OutgoingMessage {
             hasString(payload, 'trainerId') && hasString(payload, 'target') && 'value' in payload
         );
     }
+    if (value.type === 'osc_config') {
+        return isRecord(payload.config);
+    }
+    if (value.type === 'osc_command') {
+        if (payload.action === 'send') {
+            return hasString(payload, 'address') && Array.isArray(payload.args);
+        }
+        if (payload.action === 'chatbox_send') {
+            return hasString(payload, 'text');
+        }
+        return OSC_COMMAND_ACTIONS.has(String(payload.action));
+    }
     return payload.action === 'launch' || payload.action === 'stop';
+}
+
+function isOscStatus(value: unknown): boolean {
+    return (
+        isRecord(value) &&
+        hasString(value, 'state') &&
+        hasNumber(value, 'packetsIn') &&
+        hasNumber(value, 'packetsOut') &&
+        Array.isArray(value.history)
+    );
 }
 
 function isEnvelope(value: unknown): value is Record<string, unknown> & {

@@ -1,7 +1,11 @@
 const crypto = require('node:crypto');
 const path = require('node:path');
 
-const { IPC_CHANNEL, REMOTE_COMMAND_RESPONSE_TIMEOUT_MS } = require('../constants');
+const {
+    IPC_CHANNEL,
+    OSC_CONFIG_FILE_NAME,
+    REMOTE_COMMAND_RESPONSE_TIMEOUT_MS,
+} = require('../constants');
 const { writeInstallLog } = require('../logger');
 const { ensureBridge } = require('../runtime');
 const { installRendererScripts } = require('./renderer-scripts');
@@ -34,10 +38,13 @@ const WEMOD_ACCESS_TOKEN_SCRIPT =
     'JSON.parse(localStorage.getItem("infinity:globalStore") || "{}")?.token?.accessToken ?? null';
 
 function installWandRuntime(electron: ElectronPort, options: BridgeOptions = {}) {
-    const runtime = ensureBridge(options);
     if (!electron?.ipcMain || !electron.app) {
         throw new Error('Electron main-process API is required to install Wand runtime hooks.');
     }
+    const runtime = ensureBridge({
+        ...options,
+        oscConfigFile: options.oscConfigFile || resolveOscConfigFile(electron),
+    });
 
     const boundRenderers: Set<WebContentsPort> =
         globalThis.__wandRemoteBridgeBoundRenderers || new Set();
@@ -163,6 +170,17 @@ function installIpcHandlers(
         return true;
     });
     electron.ipcMain.handle(IPC_CHANNEL.REMOTE_URL, () => runtime().remoteUrl);
+}
+
+// Wand's user data folder survives Wand updates, which replace the app (and this bridge).
+function resolveOscConfigFile(electron: ElectronPort): string | undefined {
+    try {
+        const userData = electron.app.getPath?.('userData');
+        return userData ? path.join(userData, OSC_CONFIG_FILE_NAME) : undefined;
+    } catch (error) {
+        writeInstallLog('warn', 'Failed to resolve the OSC bot config folder.', error);
+        return undefined;
+    }
 }
 
 function liveRenderers(boundRenderers: Set<WebContentsPort>) {

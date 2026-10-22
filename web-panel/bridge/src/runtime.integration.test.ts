@@ -28,14 +28,18 @@ describe('production bridge runtime', () => {
 
         try {
             await waitUntil(() => runtime.listening);
-            const messages = await connectAndCollect(port, 4);
+            const messages = await connectAndCollect(port, 5);
             expect(messages.map((message) => message.type)).toEqual([
                 'hello_ack',
                 'trainer_meta',
                 'trainer_values',
                 'installed_apps',
+                'osc_state',
             ]);
             expect(messages[2].payload.values.god).toBe(true);
+            // The OSC bot opens a UDP port, so it must stay opt-in.
+            expect(messages[4].payload.config.enabled).toBe(false);
+            expect(messages[4].payload.status.state).toBe('disabled');
             expect(JSON.stringify(messages)).not.toContain('wand-secret');
             expect(JSON.stringify(messages)).not.toContain('private');
         } finally {

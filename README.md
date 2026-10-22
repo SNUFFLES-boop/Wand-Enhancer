@@ -24,6 +24,8 @@ The default .NET patcher modifies files in the selected local Wand installation 
 ✅ Advanced layout and theme customization (Client-side only) <br/>
 ✅ AI Features <br/>
 ✅ Remote web panel (Remote Connect on mobile) <br/>
+✅ OSC bot: VRChat chatbox status, avatar-parameter and OSC-controller bindings <br/>
+✅ Customizable panel themes, density, layout and UI size <br/>
 
 ## 🌐 Remote Web Panel
 WandEnhancer includes a built-in **Remote Web Panel** allowing you to control app features directly from your phone.
@@ -38,6 +40,28 @@ WandEnhancer includes a built-in **Remote Web Panel** allowing you to control ap
 - **Using mobile data or a different network?** If you want to use the panel over mobile data (LTE/5G) or from an entirely different network, you can use [Tailscale](https://tailscale.com/) or similar VPN tools.
 - The panel uses plain HTTP on port `3223` and has no pairing code. Anyone who can reach that port can view the panel and control the active trainer, so use it only on a trusted LAN/VPN and never expose the port directly to the internet.
 - The panel protocol does not include your Wand bearer token or installation-path fields.
+
+## 🎛️ OSC Bot
+
+The Remote Web Panel includes an **OSC bot** that runs inside Wand. Open the panel, switch the bottom dock to **OSC** and pick a preset.
+
+- **VRChat chatbox:** rotates live status messages above your avatar: game, active mods, session time, clock and more through `{tokens}`. It announces mod changes as they happen, can play the notification chime and show the typing indicator, and respects VRChat's 144-character limit and spam spacing.
+- **Bindings:** map any OSC address, such as `/avatar/parameters/...` or a TouchOSC fader, to a mod (Toggle, Hold, Set with rescaling, Press, Fixed value, Step) or an action (Panic, Chatbox, Launch, Stop). Addresses support OSC wildcards. **Learn** fills the address from the next control you move. **Avatar params** creates one parameter per mod in one tap, and **Send feedback** keeps faders and avatar toggles in sync.
+- **Zero-config addresses:** every mod answers on `/wand/cheat/<mod>` (plus `/toggle`, `/inc`, `/dec`, `/add`). There are also `/wand/panic`, `/wand/launch`, `/wand/stop`, `/wand/chatbox`, and `/wand/query`, which replies with the full state. Outputs can mirror the state (`/wand/mods/on`, `/wand/game/title`, …) to dashboards.
+- **Live monitor:** shows every packet in and out with folding, filters, pause, VRChat-noise hiding, one-tap **Bind** and a test-message composer.
+- **Backup & restore:** copy the whole bot profile as JSON, or paste one in.
+
+### VRChat setup
+
+1. In VRChat, open the Action Menu → **Options → OSC → Enabled**.
+2. In the panel's OSC tab, choose the **VRChat** preset. The bot listens on `9001` and sends to `127.0.0.1:9000`.
+3. If another OSC app already uses port `9001`, the bot switches to *send only*: the chatbox keeps working, but bindings need a free listen port.
+
+> The bot is off until you turn it on, and it only listens on this PC (`127.0.0.1`) unless you enable **Allow LAN devices** for phones and tablets. OSC has no password, so only allow LAN access on a trusted network. The bot profile is stored in Wand's user data folder (`wand-enhancer-osc.json`).
+
+## 🎨 Panel appearance
+
+Under **Settings → Appearance** you can pick a theme (Midnight, OLED, Nebula, Slate) and any accent color. You can also set the density (compact, cozy, roomy), the UI size (90–120%), the layout (*Focused* single column or *Wide columns* for desktops and tablets), the ambient glow, and reduced motion. In the OSC tab, the layout button lets you reorder and hide studio sections. All of this is saved per device.
 
 ## 👀 How to use?
 

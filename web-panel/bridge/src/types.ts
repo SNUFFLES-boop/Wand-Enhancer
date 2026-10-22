@@ -35,6 +35,8 @@ export type BridgeOptions = {
     maxPort?: number;
     host?: string;
     panelRoot?: string;
+    /** Where the OSC bot profile is persisted; without it the profile is in-memory only. */
+    oscConfigFile?: string;
 };
 
 export type ServerInfo = {
@@ -79,6 +81,7 @@ export type IpcMainPort = {
 };
 
 export type AppPort = {
+    getPath?(name: 'userData'): string;
     on(
         event: 'web-contents-created',
         listener: (event: unknown, contents: WebContentsPort) => void,

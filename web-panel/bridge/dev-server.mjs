@@ -1,245 +1,161 @@
-import { readFile } from 'node:fs/promises';
-import { createServer } from 'node:http';
+// Dev-only demo: runs the production bridge (dist/bridge.cjs, OSC bot included) seeded with the
+// fixture trainer, so the panel can be exercised without Wand. Build first: `pnpm run build`.
+//
+//   pnpm bridge:demo              panel on http://localhost:3223/remote/
+//   pnpm bridge:demo --vrchat     also simulate VRChat on UDP 9000/9001 for the OSC bot
+import { createSocket } from 'node:dgram';
+import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { WebSocketServer } from 'ws';
 import demoSession from '../fixtures/demo-session.json' with { type: 'json' };
 import webContract from '../protocol/web-contract.json' with { type: 'json' };
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
+const require = createRequire(import.meta.url);
+const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distDir = path.join(rootDir, 'dist');
-const DEFAULT_REMOTE_PORT = webContract.defaultRemotePort;
-const DEFAULT_REMOTE_HOST = webContract.defaultRemoteHost;
-const REMOTE_BASE_PATH = webContract.basePath;
-const REMOTE_WS_PATH = webContract.webSocketPath;
-const REMOTE_HEALTH_PATH = webContract.healthPath;
-const REMOTE_ASSETS_PREFIX = webContract.assetsPath;
-const host = process.env.HOST || DEFAULT_REMOTE_HOST;
-const port = Number(process.env.PORT || DEFAULT_REMOTE_PORT);
+const bridgeFile = path.join(distDir, 'bridge.cjs');
+const host = process.env.HOST || webContract.defaultRemoteHost;
+const port = Number(process.env.PORT || webContract.defaultRemotePort);
+const simulateVrchat = process.argv.includes('--vrchat');
 
-const trainerMeta = structuredClone(demoSession.trainerMeta);
-const trainerValues = structuredClone(demoSession.trainerValues);
-
-const wss = new WebSocketServer({ noServer: true });
-
-function jsonMessage(type, payload, requestId = null) {
-    return JSON.stringify({
-        type,
-        version: webContract.protocolVersion,
-        requestId,
-        payload,
-    });
+if (!existsSync(bridgeFile) || !existsSync(path.join(distDir, 'index.html'))) {
+    console.error('dist/ is missing. Run `pnpm run build` first.');
+    process.exit(1);
 }
 
-function sendSnapshot(ws) {
-    ws.send(jsonMessage('trainer_meta', trainerMeta));
-    ws.send(jsonMessage('trainer_values', trainerValues));
-}
+const { createBridgeRuntime } = require(bridgeFile);
+const { trainerMeta, trainerValues } = structuredClone(demoSession);
+const trainer = trainerMeta.trainer;
+const values = trainerValues.values;
+const gameTitle = process.env.DEMO_GAME || trainer.displayName;
 
-function broadcast(type, payload, requestId = null) {
-    const serialized = jsonMessage(type, payload, requestId);
-    for (const client of wss.clients) {
-        if (client.readyState === 1) {
-            client.send(serialized);
-        }
-    }
-}
+const runtime = createBridgeRuntime({
+    host,
+    port,
+    maxPort: port,
+    panelRoot: distDir,
+    oscConfigFile: path.join(tmpdir(), 'wand-osc-demo.json'),
+});
 
-function normalizeValue(target, value) {
-    const cheat = trainerMeta.schema.cheats.find((entry) => entry.target === target);
-    if (!cheat) {
-        return value;
-    }
+runtime.sync({
+    instanceId: trainerMeta.session.instanceId,
+    trainerId: trainer.trainerId,
+    trainerInfo: { gameId: trainer.gameId, displayName: gameTitle },
+    gameVersion: trainer.gameVersion,
+    metadata: {
+        info: { titleId: trainer.titleId, blueprint: { cheats: trainerMeta.schema.cheats } },
+    },
+    values,
+});
+runtime.syncGameStatus({
+    session: {
+        state: 'running',
+        event: 'game-launched',
+        gameId: trainer.gameId,
+        titleId: trainer.titleId,
+        titleName: gameTitle,
+        startedAt: new Date(Date.now() - 47 * 60 * 1000).toISOString(),
+    },
+    trainer: {
+        state: 'running',
+        event: 'trainer-started',
+        trainerId: trainer.trainerId,
+        displayName: gameTitle,
+        gameId: trainer.gameId,
+    },
+});
+runtime.syncInstalledApps({
+    apps: [
+        {
+            platform: 'steam',
+            sku: '1245620',
+            displayName: gameTitle,
+            gameId: trainer.gameId,
+            titleId: trainer.titleId,
+        },
+    ],
+});
 
-    if (cheat.type === 'toggle') {
-        return Boolean(value);
-    }
-
-    if (cheat.type === 'slider' || cheat.type === 'number') {
-        const numeric = typeof value === 'string' ? Number(value) : value;
-        return Number.isFinite(numeric) ? numeric : trainerValues.values[target];
-    }
-
-    return value;
-}
-
-function contentTypeFor(filePath) {
-    if (filePath.endsWith('.html')) return 'text/html; charset=utf-8';
-    if (filePath.endsWith('.js')) return 'application/javascript; charset=utf-8';
-    if (filePath.endsWith('.css')) return 'text/css; charset=utf-8';
-    if (filePath.endsWith('.json')) return 'application/json; charset=utf-8';
-    if (filePath.endsWith('.svg')) return 'image/svg+xml';
-    return 'application/octet-stream';
-}
-
-async function serveFile(res, filePath) {
-    try {
-        const content = await readFile(filePath);
-        res.writeHead(200, {
-            'Content-Type': contentTypeFor(filePath),
-            'Cache-Control': 'no-store',
+// Stand in for Wand's renderer: accept the write and confirm it like the real trainer does.
+runtime.setHandler(({ target, value }) => {
+    const oldValue = values[target];
+    values[target] = value;
+    setTimeout(() => {
+        runtime.valueChanged({
+            trainerId: trainer.trainerId,
+            target,
+            value,
+            oldValue,
+            source: 'remote',
         });
-        res.end(content);
-    } catch {
-        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end('Not found');
-    }
+    }, 30);
+    return true;
+});
+runtime.setCommandHandler(async ({ action, gameId }) => ({ ok: true, action, gameId }));
+
+if (simulateVrchat) {
+    startVrchatSimulator();
 }
 
-const server = createServer(async (req, res) => {
-    const url = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
+const shownHost = host === webContract.defaultRemoteHost ? 'localhost' : host;
+console.log(`Demo bridge on http://${shownHost}:${port}${webContract.basePath}`);
 
-    if (url.pathname === '/' || url.pathname === '') {
-        res.writeHead(302, { Location: REMOTE_BASE_PATH });
-        res.end();
-        return;
-    }
-
-    if (url.pathname === REMOTE_BASE_PATH.slice(0, -1)) {
-        res.writeHead(302, { Location: REMOTE_BASE_PATH });
-        res.end();
-        return;
-    }
-
-    if (url.pathname === REMOTE_BASE_PATH) {
-        await serveFile(res, path.join(distDir, 'index.html'));
-        return;
-    }
-
-    if (url.pathname === REMOTE_HEALTH_PATH) {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ ok: true, trainerId: trainerMeta.trainer.trainerId }));
-        return;
-    }
-
-    if (url.pathname.startsWith(REMOTE_ASSETS_PREFIX)) {
-        const relativePath = url.pathname.replace(REMOTE_BASE_PATH, '');
-        await serveFile(res, path.join(distDir, relativePath));
-        return;
-    }
-
-    res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-    res.end('Not found');
+process.on('SIGINT', () => {
+    runtime.close();
+    process.exit(0);
 });
 
-server.on('upgrade', (request, socket, head) => {
-    const url = new URL(request.url || '/', `http://${request.headers.host || 'localhost'}`);
-    if (url.pathname !== REMOTE_WS_PATH) {
-        socket.destroy();
-        return;
-    }
-
-    wss.handleUpgrade(request, socket, head, (ws) => {
-        wss.emit('connection', ws, request);
-    });
-});
-
-wss.on('connection', (ws) => {
-    ws.on('error', console.error);
-
-    ws.on('message', (raw) => {
-        try {
-            const message = JSON.parse(String(raw));
-            if (
-                message?.version !== webContract.protocolVersion ||
-                typeof message?.type !== 'string' ||
-                !message?.payload
-            ) {
-                ws.send(
-                    jsonMessage(
-                        'error',
-                        {
-                            code: 'invalid_message',
-                            message: 'Expected a compatible protocol envelope.',
-                        },
-                        message?.requestId ?? null,
-                    ),
-                );
-                return;
-            }
-            if (message?.type === 'hello') {
-                ws.send(
-                    jsonMessage(
-                        'hello_ack',
-                        {
-                            sessionId: `sess_${Date.now()}`,
-                            accepted: true,
-                            serverVersion: '0.1.0-demo',
-                            protocolVersion: webContract.protocolVersion,
-                        },
-                        message.requestId ?? null,
-                    ),
-                );
-                sendSnapshot(ws);
-                return;
-            }
-
-            if (message?.type === 'set_value') {
-                const target = message.payload?.target;
-                if (
-                    message.payload?.trainerId !== trainerMeta.trainer.trainerId ||
-                    typeof target !== 'string' ||
-                    !(target in trainerValues.values)
-                ) {
-                    ws.send(
-                        jsonMessage(
-                            'set_value_result',
-                            {
-                                ok: false,
-                                trainerId: trainerMeta.trainer.trainerId,
-                                target: typeof target === 'string' ? target : '',
-                                error: {
-                                    code: 'invalid_target',
-                                    message: 'Unknown cheat target.',
-                                },
-                            },
-                            message.requestId ?? null,
-                        ),
-                    );
-                    return;
-                }
-
-                const previousValue = trainerValues.values[target];
-                const nextValue = normalizeValue(target, message.payload?.value);
-                trainerValues.values[target] = nextValue;
-
-                ws.send(
-                    jsonMessage(
-                        'set_value_result',
-                        {
-                            ok: true,
-                            trainerId: trainerMeta.trainer.trainerId,
-                            target,
-                        },
-                        message.requestId ?? null,
-                    ),
-                );
-
-                broadcast('value_changed', {
-                    trainerId: trainerMeta.trainer.trainerId,
-                    target,
-                    value: nextValue,
-                    oldValue: previousValue,
-                    source: 'remote',
-                    cheatId: message.payload?.cheatId,
-                });
-            }
-        } catch (error) {
-            ws.send(
-                jsonMessage('error', {
-                    code: 'invalid_message',
-                    message:
-                        error instanceof Error ? error.message : 'Failed to parse client message.',
-                }),
-            );
+/** Prints what the bot sends to VRChat and streams avatar parameters back like VRChat does. */
+function startVrchatSimulator() {
+    const vrchatIn = createSocket('udp4');
+    vrchatIn.on('message', (packet) => {
+        const text = readOscString(packet);
+        if (text.address === '/chatbox/input') {
+            console.log(`[vrchat] chatbox: ${JSON.stringify(text.firstString)}`);
         }
     });
-});
+    vrchatIn.bind(9000, '127.0.0.1');
 
-server.listen(port, host, () => {
-    console.log(
-        `Wand web panel bridge listening on http://${host === DEFAULT_REMOTE_HOST ? 'localhost' : host}:${port}${REMOTE_BASE_PATH}`,
-    );
-});
+    const vrchatOut = createSocket('udp4');
+    let tick = 0;
+    setInterval(() => {
+        tick += 1;
+        send(vrchatOut, '/avatar/parameters/VelocityX', 'f', Math.sin(tick / 3));
+        if (tick % 8 === 0) {
+            send(vrchatOut, '/avatar/parameters/WandGodMode', tick % 16 === 0 ? 'T' : 'F');
+        }
+        if (tick % 5 === 0) {
+            send(vrchatOut, '/avatar/parameters/WandGameSpeed', 'f', (tick % 20) / 20);
+        }
+    }, 400).unref();
+    console.log('Simulating VRChat: listening on 9000, sending avatar parameters to 9001.');
+}
+
+function send(socket, address, type, value) {
+    const parts = [oscString(address), oscString(`,${type}`)];
+    if (type === 'f') {
+        const chunk = Buffer.alloc(4);
+        chunk.writeFloatBE(value);
+        parts.push(chunk);
+    }
+    socket.send(Buffer.concat(parts), 9001, '127.0.0.1');
+}
+
+function oscString(value) {
+    const bytes = Buffer.from(value, 'utf8');
+    const padded = Buffer.alloc((bytes.length + 4) & ~3);
+    bytes.copy(padded);
+    return padded;
+}
+
+function readOscString(packet) {
+    const end = packet.indexOf(0);
+    const address = packet.toString('utf8', 0, end);
+    const tagsStart = (end + 4) & ~3;
+    const tagsEnd = packet.indexOf(0, tagsStart);
+    const valueStart = (tagsEnd + 4) & ~3;
+    const valueEnd = packet.indexOf(0, valueStart);
+    return { address, firstString: packet.toString('utf8', valueStart, valueEnd) };
+}

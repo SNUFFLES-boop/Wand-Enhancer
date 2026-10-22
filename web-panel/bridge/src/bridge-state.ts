@@ -5,6 +5,7 @@ import type {
     TrainerMetaPayload,
     TrainerValuesPayload,
 } from '../../protocol/messages';
+import type { OscBotEvent } from './osc/osc-bot';
 import type { BridgeClient, LogFn, ServerInfo } from './types';
 
 const {
@@ -48,14 +49,24 @@ type BridgeStateOptions = {
     clients: Iterable<BridgeClient>;
     log: LogFn;
     getServerInfo: () => ServerInfo & { listening: boolean; remoteUrl: string | null };
+    /** Accepted state changes, for consumers inside the bridge (the OSC bot). */
+    onEvent?: (event: OscBotEvent) => void;
 };
 
-function createBridgeState({ clients, log, getServerInfo }: BridgeStateOptions) {
+function createBridgeState({ clients, log, getServerInfo, onEvent }: BridgeStateOptions) {
     let currentSnapshot: BridgeStateSnapshot | null = null;
     let currentInstalledApps: InstalledAppsPayload | null = null;
     let currentInstalledAppsSignature: string | null = null;
     let currentGameStatus: GameStatusPayload | null = null;
     let currentGameStatusSignature: string | null = null;
+
+    function emit(event: OscBotEvent) {
+        try {
+            onEvent?.(event);
+        } catch (error) {
+            log('warn', `Bridge event consumer failed on ${event.type}.`, error);
+        }
+    }
 
     function broadcast(
         type: IncomingMessage['type'],
@@ -93,6 +104,9 @@ function createBridgeState({ clients, log, getServerInfo }: BridgeStateOptions) 
             broadcast('trainer_meta', currentSnapshot.trainerMeta);
             broadcast('trainer_values', currentSnapshot.trainerValues);
         }
+        if (previousTrainerId !== nextTrainerId) {
+            emit({ type: 'trainer' });
+        }
     }
 
     function syncTrainerMeta(rawSnapshot: unknown) {
@@ -128,6 +142,7 @@ function createBridgeState({ clients, log, getServerInfo }: BridgeStateOptions) 
             source: safeString(change.source, 'desktop'),
             cheatId: typeof change.cheatId === 'string' ? change.cheatId : undefined,
         });
+        emit({ type: 'value', target, value });
     }
 
     function syncInstalledApps(rawInstalledApps: unknown) {
@@ -166,6 +181,7 @@ function createBridgeState({ clients, log, getServerInfo }: BridgeStateOptions) 
             `Game status snapshot accepted (${nextGameStatus.session.state}/${nextGameStatus.session.event}).`,
         );
         broadcast('game_status', currentGameStatus);
+        emit({ type: 'game_status' });
     }
 
     function buildHealthPayload() {
@@ -194,6 +210,13 @@ function createBridgeState({ clients, log, getServerInfo }: BridgeStateOptions) 
         get snapshot() {
             return currentSnapshot;
         },
+        get gameStatus() {
+            return currentGameStatus;
+        },
+        get installedApps() {
+            return currentInstalledApps?.apps ?? [];
+        },
+        broadcast,
         buildHealthPayload,
         clear,
         sendSnapshot,

@@ -26,6 +26,25 @@ This repository patches the Wand Electron app from a .NET Framework WPF desktop 
 - Desktop update notifications are compile-time opt-in through the `EnableUpdateNotifications` MSBuild property and `ENABLE_UPDATE_NOTIFICATIONS` symbol. Default and official release builds must exclude `UpdateNotifier` and its network code entirely. The opt-in variant only checks GitHub's latest public release (on by default, toggle persisted in `AppSettings.CheckUpdates`, with an opt-in `CheckPrereleases` flag that reads the releases list and also considers prereleases), shows a native Windows notification and a header badge when found, and clicking either opens the `UpdatePopup` notes modal on the UI thread (the release page when only the launcher is running). It never downloads or installs an update.
 - Pro activation is a C# asar patch (`EPatchType.ActivatePro`, independent of the remote panel / bridge). It wraps the returned promise of three account-returning service methods so `subscription:{period:"yearly",state:"active"}` is injected before the response reaches the store: `getUserAccount`, `setAccountWandBrandExperience` and `setAccountLanguage`. A fourth patch (`setAccountReducer`) rewrites the `ACTION_SET_ACCOUNT` store reducer so any account write (periodic `refreshAccount`, push/profile updates, etc.) keeps Pro even when it bypasses those API methods. Pro is `am(account) = !!account.subscription` (flags/512 are irrelevant). `setAccountLanguage` is the one the original two patches missed, which is why Pro dropped on language change. `setAccountWandBrandExperience` does not exist on every build, so it is declared optional through `CapabilityHints`.
 
+## OSC Bot
+
+- The OSC bot runs inside the bridge (`web-panel/bridge/src/osc/`), in Wand's main process, with no runtime dependencies: `osc-codec.ts` is the OSC 1.0 codec (bundles, address patterns), `osc-bot.ts` owns the UDP sockets, bindings, auto-mapped `<prefix>/...` routes, feedback, chatbox loop and activity log, and `osc-cheat-values.ts` converts OSC arguments to cheat values.
+- The bot is opt-in: `OscBotConfig.enabled` defaults to `false`, and it listens on `127.0.0.1` unless `allowLan` is set. Do not change either default; OSC has no authentication.
+- Every OSC trainer write goes through `writeTrainerValue` in `bridge/src/server.ts`, the same validated path as the panel's `set_value`. Do not add a second write path into the renderer.
+- Writes that would not change the current value are skipped. This is the feedback-loop guard for controllers that echo what they receive; keep it when touching `write()`.
+- VRChat limits are enforced by the bot, not the panel: chatbox text is fitted to 144 characters / 9 lines and sends are spaced by `OSC_LIMITS.chatboxMinSpacingMs` (newest message wins). A stopped or disabled bot clears the chatbox it filled.
+- If the listen port is taken (VRChat apps often hold 9001) the bot falls back to `send_only` instead of failing: the chatbox and feedback must keep working.
+- `installWandRuntime` persists the profile to `<Wand userData>/wand-enhancer-osc.json`. `createBridgeRuntime` without `oscConfigFile` keeps it in memory, so tests never write a user profile.
+- Shared knowledge lives in `web-panel/protocol/`: `osc.ts` (config model, defaults, `normalizeOscConfig` for every untrusted config), `chatbox-template.ts` (tokens and rendering, used by the bot and the panel preview) and `cheat-kinds.ts` (press / numeric / option cheat rules). Do not fork these into the bridge or the panel.
+- The websocket `hello` snapshot sends `osc_state` last, after `installed_apps` and `game_status`. Activity is streamed as batched `osc_activity` upserts keyed by entry id; status as `osc_status`.
+- The panel's OSC studio (`web-panel/src/osc-bot/`) is lazily loaded through `React.lazy` so phones that never open it never download it; keep it out of the main chunk. Config edits are optimistic and debounced in `use-remote-session.ts`; values that are only valid when complete (ports, hosts, addresses) use `CommitInput`.
+- Lingui parses `{...}` in messages as ICU placeholders. Pass literal braces (OSC wildcards, chatbox tokens) in as values, never as message text, or rendering throws.
+
+## Appearance
+
+- Per-device theme, density, layout width, UI size, glow and motion preferences live in `web-panel/src/appearance/appearance-storage.ts` and are applied as `data-*` attributes and CSS variables on `<html>`. Density works by overriding Tailwind's `--spacing`; UI size uses `zoom` on `.deck-scale` elements only, never on viewport-sized wrappers.
+- Do not call `scrollIntoView` inside the panel: it also scrolls the shell's `overflow-hidden` ancestors and shifts the layout. Use `revealInScroller` (`src/shared/lib/reveal.ts`), which scrolls only `[data-scroll-root]`.
+
 ## Patch Engine
 
 - Patches are located structurally, not by shape. A patch anchors on something Wand does not rename between builds — an API endpoint, an IPC channel name, a public method name — and then walks the delimiter structure (`Core/Js/JsCursor.cs`) to the edit site. Identifiers that do change (`#Xe`, `l.vO`, the numeric Remote source) are read out of the located region, never baked into a pattern. A rebuild that only reminifies therefore needs no change here.
@@ -56,4 +75,5 @@ This repository patches the Wand Electron app from a .NET Framework WPF desktop 
 
 - Web panel build: `cd web-panel && pnpm run build` (runs type-check, Vite build, then `build:bridge` into `dist`).
 - Bridge/script syntax checks after build: `node --check web-panel/dist/bridge.cjs` and `node --check web-panel/dist/renderer-scripts/remote-popup-cleanup.js`.
+- `pnpm bridge:demo` runs the production `dist/bridge.cjs` seeded with the fixture trainer (build first); `pnpm bridge:demo --vrchat` also simulates VRChat on UDP 9000/9001 for the OSC bot.
 - Production dist should contain only static assets and should not contain `mock-instance`, `Mock Adventure`, `Simulation`, `Debug session`, `mock=1`, `demo-session`, `vite.svg`, `tailwind-merge`, `class-variance-authority`, or `clsx`.

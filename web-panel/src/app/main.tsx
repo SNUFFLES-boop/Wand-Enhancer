@@ -3,7 +3,7 @@ import { I18nProvider } from '@lingui/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import { applySavedAccentColor } from '@/appearance/appearance-storage';
+import { applySavedAccentColor, applySavedAppearance } from '@/appearance/appearance-storage';
 
 import { App } from './app';
 import { activateLocale, detectInitialLocale } from './i18n';
@@ -16,6 +16,7 @@ if (!root) {
 }
 
 applySavedAccentColor();
+applySavedAppearance();
 
 function render() {
     createRoot(root!).render(

@@ -13,6 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: binding.cheatName
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "\"{0}\" is not in this trainer"
+msgstr "此训练器中没有“{0}”"
+
 #. placeholder {0}: games.length
 #: src/library/ui/LibraryDrawer.tsx
 msgid "{0, plural, one {# game detected} other {# games detected}}"
@@ -31,9 +36,30 @@ msgstr "{cheatCount} 个模组"
 msgid "{cheatCount} mods · {enabledCount}/{toggleCount} on"
 msgstr "{cheatCount} 个模组 · {enabledCount}/{toggleCount} 已开"
 
-#: src/app/ui/SettingsDrawer.tsx
-msgid "Accent Color"
-msgstr "强调色"
+#. placeholder {0}: OSC_LIMITS.chatboxMaxChars
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "{length} of {0} characters"
+msgstr "{length} / {0} 个字符"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "1 0.5 true \"text\""
+msgstr "1 0.5 true \"文本\""
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "1 while a game or trainer runs"
+msgstr "游戏或训练器运行时为 1"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "1 while a trainer is loaded"
+msgstr "加载训练器时为 1"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Action"
+msgstr "动作"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Active mods"
+msgstr "已启用模组"
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Active Session"
@@ -43,27 +69,154 @@ msgstr "当前会话"
 msgid "Add"
 msgstr "添加"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Add message"
+msgstr "添加消息"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Add output"
+msgstr "添加输出"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Add Preset"
 msgstr "添加预设"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Add VRChat"
+msgstr "添加 VRChat"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Address"
+msgstr "地址"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Address Map"
+msgstr "地址表"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Address prefix"
+msgstr "地址前缀"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Address to send"
+msgstr "发送地址"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Adds the amount on every press. Use a negative amount to step down."
+msgstr "每次按下时增加该数值。使用负数可递减。"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "All"
+msgstr "全部"
 
 #: src/library/ui/LibraryDrawer.tsx
 msgid "All Games"
 msgstr "所有游戏"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "All outputs"
+msgstr "所有输出"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Allow LAN devices"
+msgstr "允许局域网设备"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Amber"
 msgstr "琥珀"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Ambient glow"
+msgstr "环境光晕"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Amount per press"
+msgstr "每次按下的数值"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Announce mod changes"
+msgstr "播报模组变更"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Announcement template"
+msgstr "播报模板"
+
+#. placeholder {0}: config.prefix
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Answer on {0}/cheat/<mod> without any binding."
+msgstr "无需绑定即可响应 {0}/cheat/<mod>。"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "any game"
+msgstr "任意游戏"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Any game (by name)"
+msgstr "任意游戏（按名称）"
+
+#: src/app/ui/SettingsDrawer.tsx
+msgid "Appearance"
+msgstr "外观"
 
 #: src/trainer/controls/ActionButton.tsx
 msgid "Apply"
 msgstr "应用"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Arguments"
+msgstr "参数"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Auto-map every mod"
+msgstr "自动映射所有模组"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Auto-map is off under Network, so these addresses are ignored."
+msgstr "“网络”中已关闭自动映射，这些地址将被忽略。"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Avatar params"
+msgstr "头像参数"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Backup & restore"
+msgstr "备份与恢复"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Bind"
+msgstr "绑定"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Binding feedback"
+msgstr "绑定反馈"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Bindings"
+msgstr "绑定"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Bot is off"
+msgstr "机器人已关闭"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Bot profile JSON"
+msgstr "机器人配置 JSON"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Bot uptime"
+msgstr "机器人运行时长"
+
+#. placeholder {0}: binding.cheatName
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Bound to \"{0}\". Start a trainer to change the mod."
+msgstr "已绑定到“{0}”。启动训练器后可更换模组。"
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Bridge"
 msgstr "桥接"
 
 #: src/app/ui/SessionPlaceholder.tsx
+#: src/osc-bot/ui/OscStudio.tsx
 msgid "Bridge offline"
 msgstr "桥接已离线"
 
@@ -71,6 +224,7 @@ msgstr "桥接已离线"
 msgid "Browse library"
 msgstr "浏览游戏库"
 
+#: src/osc-bot/ui/BindingsSection.tsx
 #: src/trainer/ui/QuickActions.tsx
 msgid "Cancel"
 msgstr "取消"
@@ -83,13 +237,74 @@ msgstr "挑战"
 msgid "Character"
 msgstr "角色"
 
+#: src/osc-bot/ui/labels.ts
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Chatbox"
+msgstr "聊天框"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Chatbox + avatar · 9001 → 9000"
+msgstr "聊天框 + 头像 · 9001 → 9000"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Chatbox bot"
+msgstr "聊天框机器人"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Chatbox cleared"
+msgstr "聊天框已清空"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Chatbox message"
+msgstr "聊天框消息"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Chatbox stays empty"
+msgstr "聊天框保持为空"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Cheats"
 msgstr "作弊"
 
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Choose a game…"
+msgstr "选择游戏…"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Choose a mod…"
+msgstr "选择模组…"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Clear"
+msgstr "清空"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Clear chatbox"
+msgstr "清空聊天框"
+
 #: src/shared/ui/SearchInput.tsx
 msgid "Clear search"
 msgstr "清除搜索"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Clear the chatbox"
+msgstr "清空聊天框"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Cleared {sentAgo}s ago"
+msgstr "{sentAgo} 秒前已清空"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Clock"
+msgstr "时钟"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Clock 12h"
+msgstr "12 小时制时钟"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Close backup"
+msgstr "关闭备份"
 
 #: src/shared/ui/Drawer.tsx
 msgid "Close drawer"
@@ -107,39 +322,168 @@ msgstr "关闭预设窗口"
 msgid "Close settings"
 msgstr "关闭设置"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Cobalt"
 msgstr "钴蓝"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Commands"
+msgstr "命令"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Compact"
+msgstr "紧凑"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Connect to Wand from Settings to configure the OSC bot."
+msgstr "请在设置中连接 Wand 以配置 OSC 机器人。"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Controllers and avatar parameters → mods"
+msgstr "控制器与头像参数 → 模组"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copied"
+msgstr "已复制"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copy"
+msgstr "复制"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Copy {address}"
+msgstr "复制 {address}"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copy listen address"
+msgstr "复制监听地址"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copy the whole bot profile as JSON, or paste one in."
+msgstr "将完整机器人配置复制为 JSON，或粘贴一份。"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Counters reset"
+msgstr "计数已重置"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Cozy"
+msgstr "舒适"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Crafting"
 msgstr "制作"
 
-#: src/app/ui/SettingsDrawer.tsx
+#. placeholder {0}: entry.address
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Create a binding for {0}"
+msgstr "为 {0} 创建绑定"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Crimson"
 msgstr "深红"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Current game title"
+msgstr "当前游戏名称"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Custom"
 msgstr "自定义"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Customize layout"
+msgstr "自定义布局"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Cyan"
 msgstr "青色"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Date"
+msgstr "日期"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Delete"
+msgstr "删除"
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Delete message {0}"
+msgstr "删除消息 {0}"
 
 #. placeholder {0}: preset.name
 #: src/trainer/ui/QuickActions.tsx
 msgid "Delete preset {0}"
 msgstr "删除预设 {0}"
 
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Density"
+msgstr "密度"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Done"
+msgstr "完成"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Duplicate"
+msgstr "复制"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "e.g. ✦ Boss fight in {gameToken}!"
+msgstr "例如 ✦ {gameToken} 中的首领战！"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Echoes the mod's value back to this address, so faders and avatar toggles stay in sync."
+msgstr "将模组的值回传到此地址，让推子和头像开关保持同步。"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Empty clears the chatbox when no game runs"
+msgstr "留空则在无游戏运行时清空聊天框"
+
+#. placeholder {0}: binding.address
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/BindingsSection.tsx
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Enable {0}"
+msgstr "启用 {0}"
+
 #. placeholder {0}: trainer.totalCheats
 #: src/app/app.tsx
 msgid "END · {0} MODS"
 msgstr "结束 · {0} 个模组"
 
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "End the running trainer"
+msgstr "结束正在运行的训练器"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Ends the running trainer."
+msgstr "结束正在运行的训练器。"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Enemies"
 msgstr "敌人"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Error"
+msgstr "错误"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Errors"
+msgstr "错误"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Every mod already answers on the Address Map. Bindings map any other address, like an avatar parameter or a TouchOSC fader, to a mod or an action."
+msgstr "每个模组都已在地址表中可用。绑定可将任意其他地址（如头像参数或 TouchOSC 推子）映射到模组或动作。"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Every packet in and out"
+msgstr "所有收发数据包"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Fader smoothing"
+msgstr "推子平滑"
 
 #: src/library/ui/LibraryDrawer.tsx
 #: src/trainer/ui/TrainerHeader.tsx
@@ -150,36 +494,156 @@ msgstr "收藏游戏"
 msgid "Favorites"
 msgstr "收藏"
 
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Filter mods"
+msgstr "筛选模组"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Filter traffic"
+msgstr "筛选流量"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Finish customizing"
+msgstr "完成自定义"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Fires a one-shot mod such as Heal or Add money."
+msgstr "触发一次性模组，如“治疗”或“加钱”。"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Fixed"
+msgstr "固定值"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Flips a toggle mod on every press. Releases are ignored."
+msgstr "每次按下切换开关类模组，松开时忽略。"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Focused"
+msgstr "居中"
+
+#: src/osc-bot/ui/labels.ts
 #: src/trainer/ui/category-labels.ts
 msgid "Game"
 msgstr "游戏"
+
+#: src/app/app.tsx
+msgid "Game library"
+msgstr "游戏库"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Game to launch"
+msgstr "要启动的游戏"
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "GO"
 msgstr "连接"
 
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Hide {title}"
+msgstr "隐藏{title}"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Hide VRChat built-ins"
+msgstr "隐藏 VRChat 内置参数"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Hold"
+msgstr "按住"
+
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Host of {0}"
+msgstr "{0} 的主机"
+
 #: src/app/ui/TopBar.tsx
 msgid "Idle · no game"
 msgstr "空闲 · 无游戏"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Idle message"
+msgstr "空闲消息"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Import"
+msgstr "导入"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Import keeps the bot's on/off state as it is now."
+msgstr "导入时保留机器人当前的开关状态。"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+#: src/osc-bot/ui/OscHero.tsx
+msgid "In"
+msgstr "入"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Input from"
+msgstr "输入起点"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Input to"
+msgstr "输入终点"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Insert a mod value"
+msgstr "插入模组值"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Insert token"
+msgstr "插入标记"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Inventory"
 msgstr "物品栏"
 
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Issues"
+msgstr "问题"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Items"
 msgstr "物品"
 
+#: src/osc-bot/ui/OscHero.tsx
+msgid "LAN controller"
+msgstr "局域网控制器"
+
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Language"
 msgstr "语言"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Last mod"
+msgstr "最近模组"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Last value"
+msgstr "最近数值"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Launch"
+msgstr "启动"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Launch a game by name or id"
+msgstr "按名称或 ID 启动游戏"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Layout"
+msgstr "布局"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Learn"
+msgstr "学习"
 
 #: src/app/ui/FloatingDock.tsx
 #: src/library/ui/LibraryDrawer.tsx
 msgid "Library"
 msgstr "游戏库"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Lime"
 msgstr "青柠"
 
@@ -187,17 +651,148 @@ msgstr "青柠"
 msgid "LINKING"
 msgstr "连接中"
 
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Listen on every network interface so phones and tablets can send OSC."
+msgstr "监听所有网络接口，让手机和平板也能发送 OSC。"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Listen port"
+msgstr "监听端口"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Listener"
+msgstr "监听"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Listener, outputs and backups"
+msgstr "监听、输出与备份"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+#: src/osc-bot/ui/labels.ts
+msgid "Listening"
+msgstr "监听中"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Listening for a control…"
+msgstr "正在等待控件…"
+
 #: src/app/ui/StatusPill.tsx
 msgid "LIVE"
 msgstr "在线"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/labels.ts
+msgid "Live Monitor"
+msgstr "实时监视"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Live status above your avatar"
+msgstr "在头像上方实时显示状态"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Loading the OSC bot…"
+msgstr "正在加载 OSC 机器人…"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Magenta"
 msgstr "品红"
+
+#. placeholder {0}: binding.inputMin
+#. placeholder {1}: binding.inputMax
+#. placeholder {2}: range.min
+#. placeholder {3}: range.max
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Maps {0}–{1} onto {2}–{3}."
+msgstr "将 {0}–{1} 映射到 {2}–{3}。"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Maps the input range onto the mod's options."
+msgstr "将输入范围映射到模组的选项。"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Message"
+msgstr "消息"
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Message {0}"
+msgstr "消息 {0}"
+
+#. placeholder {0}: rendered.length
+#. placeholder {1}: chatbox.intervalSeconds
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Message {position} of {0} · every {1}s"
+msgstr "第 {position}/{0} 条 · 每 {1} 秒"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Midnight"
+msgstr "午夜"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Mod"
+msgstr "模组"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Mod value…"
+msgstr "模组值…"
+
+#: src/app/ui/FloatingDock.tsx
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Mods"
+msgstr "模组"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Mods bar"
+msgstr "模组进度条"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Mods in this trainer"
+msgstr "此训练器中的模组"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Mods on"
+msgstr "已开启模组数"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Mods total"
+msgstr "模组总数"
+
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Move {title} down"
+msgstr "下移{title}"
+
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Move {title} up"
+msgstr "上移{title}"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Move a fader, press a button or flip an avatar toggle."
+msgstr "移动推子、按下按钮或切换头像开关。"
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Move message {0} down"
+msgstr "下移消息 {0}"
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Move message {0} up"
+msgstr "上移消息 {0}"
 
 #: src/trainer/ui/QuickActions.tsx
 msgid "Name"
 msgstr "名称"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Nebula"
+msgstr "星云"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Network"
+msgstr "网络"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "New binding"
+msgstr "新建绑定"
 
 #: src/trainer/ui/QuickActions.tsx
 msgid "New preset"
@@ -207,6 +802,10 @@ msgstr "新预设"
 msgid "No active game session."
 msgstr "没有活动的游戏会话。"
 
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "No bindings yet"
+msgstr "暂无绑定"
+
 #: src/app/ui/SessionPlaceholder.tsx
 msgid "No game is running yet. Open the library and launch one to start tweaking."
 msgstr "尚未运行游戏。打开游戏库并启动一个即可开始调整。"
@@ -214,6 +813,10 @@ msgstr "尚未运行游戏。打开游戏库并启动一个即可开始调整。
 #: src/library/ui/LibraryDrawer.tsx
 msgid "No games match \"{query}\""
 msgstr "没有匹配「{query}」的游戏"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "No mod"
+msgstr "无模组"
 
 #. placeholder {0}: trainer.query
 #: src/app/app.tsx
@@ -224,17 +827,49 @@ msgstr "没有匹配「{0}」的模组"
 msgid "No options"
 msgstr "无选项"
 
-#: src/app/ui/FloatingDock.tsx
-msgid "No session"
-msgstr "无会话"
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "No output has Chatbox enabled yet. Add VRChat under Network."
+msgstr "尚无输出启用聊天框。请在“网络”中添加 VRChat。"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "No outputs: the bot can listen, but nothing will be sent."
+msgstr "没有输出：机器人可以监听，但不会发送任何内容。"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Not valid JSON"
+msgstr "无效的 JSON"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Nothing sent yet"
+msgstr "尚未发送"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Notification sound"
+msgstr "提示音"
 
 #: src/library/ui/LibraryDrawer.tsx
 msgid "Now Playing"
 msgstr "正在游玩"
 
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "off"
+msgstr "关"
+
 #: src/app/ui/StatusPill.tsx
 msgid "OFFLINE"
 msgstr "离线"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "OLED"
+msgstr "OLED"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "One /avatar/parameters/Wand… address per mod of this trainer"
+msgstr "为此训练器的每个模组生成一个 /avatar/parameters/Wand… 地址"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "One-off chatbox message"
+msgstr "一次性聊天框消息"
 
 #: src/app/ui/SessionPlaceholder.tsx
 msgid "Open Settings"
@@ -244,13 +879,55 @@ msgstr "打开设置"
 msgid "Open Settings to point Wand at your trainer bridge over WebSocket."
 msgstr "打开设置，通过 WebSocket 将 Wand 指向你的训练器桥接。"
 
+#: src/app/ui/FloatingDock.tsx
+msgid "OSC"
+msgstr "OSC"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "OSC address"
+msgstr "OSC 地址"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "OSC has no password: anyone on this network can drive your mods."
+msgstr "OSC 没有密码：此网络中的任何人都能控制你的模组。"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Out"
+msgstr "出"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Output name"
+msgstr "输出名称"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Outputs"
+msgstr "输出"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Panic"
+msgstr "紧急关闭"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Panic Off"
 msgstr "全部关闭"
 
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Pause"
+msgstr "暂停"
+
+#: src/osc-bot/ui/TrafficSparkline.tsx
+msgid "peak {peak}/s"
+msgstr "峰值 {peak}/秒"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Physics"
 msgstr "物理"
+
+#. placeholder {0}: cheat.name
+#: src/trainer/ui/CheatTile.tsx
+msgid "Pin {0}"
+msgstr "置顶 {0}"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Pinned"
@@ -264,22 +941,108 @@ msgstr "开始游戏"
 msgid "Player"
 msgstr "玩家"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Plays VRChat's chime for announcements."
+msgstr "播报时播放 VRChat 提示音。"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Point controllers at"
+msgstr "将控制器指向"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Pops a message whenever a mod changes, from any source."
+msgstr "任何来源模组发生变化时弹出消息。"
+
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Port of {0}"
+msgstr "{0} 的端口"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Preset name"
 msgstr "预设名称"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Press"
+msgstr "按下"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Reduce motion"
+msgstr "减少动效"
+
+#: src/app/app.tsx
+msgid "Reload studio"
+msgstr "重新加载工作室"
+
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Remove {0}"
+msgstr "移除 {0}"
 
 #: src/library/ui/LibraryDrawer.tsx
 #: src/trainer/ui/TrainerHeader.tsx
 msgid "Remove favorite"
 msgstr "取消收藏"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Renders empty now · skipped"
+msgstr "当前为空 · 跳过"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Reorder sections and hide the ones you do not use. Saved on this device."
+msgstr "调整分区顺序并隐藏不用的分区。保存在此设备上。"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Reply with the full state to the sender"
+msgstr "向发送方回复完整状态"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Rescale input"
+msgstr "重新映射输入"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Reset"
+msgstr "重置"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Reset layout & theme"
+msgstr "重置布局与主题"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Resources"
 msgstr "资源"
 
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Resume ({hiddenSincePause} new)"
+msgstr "继续（{hiddenSincePause} 条新消息）"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Roomy"
+msgstr "宽松"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Rotate every"
+msgstr "轮换间隔"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Rotates your messages to {chatboxOutputs} output(s)."
+msgstr "向 {chatboxOutputs} 个输出轮换发送你的消息。"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Rotation"
+msgstr "轮换"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Routing"
+msgstr "路由"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Save"
 msgstr "保存"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Say something in the chatbox…"
+msgstr "在聊天框里说点什么…"
 
 #: src/library/ui/LibraryDrawer.tsx
 msgid "Search games"
@@ -293,19 +1056,125 @@ msgstr "搜索模组"
 msgid "Select a game"
 msgstr "选择游戏"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Send"
+msgstr "发送"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Send a chatbox message (tokens work)"
+msgstr "发送聊天框消息（支持标记）"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Send a test message"
+msgstr "发送测试消息"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Send a value to set it. Append /toggle, /inc, /dec or /add to step. The name slug works as well as the id."
+msgstr "发送数值即可设置。追加 /toggle、/inc、/dec 或 /add 可切换或步进。名称别名与 ID 同样有效。"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Send feedback"
+msgstr "发送反馈"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Send only"
+msgstr "仅发送"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Send to"
+msgstr "发送到"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Send to chatbox"
+msgstr "发送到聊天框"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Sends your message to the chatbox. Tokens are filled in live."
+msgstr "将你的消息发送到聊天框，标记会实时填充。"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Sent"
+msgstr "已发送"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Sent {sentAgo}s ago"
+msgstr "{sentAgo} 秒前已发送"
+
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Session"
 msgstr "会话"
 
+#: src/osc-bot/ui/labels.ts
+msgid "Session time"
+msgstr "会话时长"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Set"
+msgstr "设置"
+
+#: src/app/app.tsx
 #: src/app/ui/FloatingDock.tsx
 #: src/app/ui/SettingsDrawer.tsx
 #: src/app/ui/TopBar.tsx
 msgid "Settings"
 msgstr "设置"
 
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Show {title}"
+msgstr "显示{title}"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Show what you are playing in VRChat's chatbox and drive mods from avatar parameters, TouchOSC, Stream Deck or any OSC app."
+msgstr "在 VRChat 聊天框中显示你正在玩的游戏，并通过头像参数、TouchOSC、Stream Deck 或任意 OSC 应用控制模组。"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Shows the typing bubble before each message."
+msgstr "每条消息前显示输入气泡。"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Skips ripples, slides and pulses."
+msgstr "跳过涟漪、滑动和脉冲动效。"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Slate"
+msgstr "石板"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Start a trainer to pick a mod."
+msgstr "启动训练器后即可选择模组。"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Start a trainer to see its mod addresses."
+msgstr "启动训练器后即可查看其模组地址。"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Starting…"
+msgstr "启动中…"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Starts the trainer for the game you pick."
+msgstr "为所选游戏启动训练器。"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "State mirror"
+msgstr "状态镜像"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "State mirror (outputs with State mirror on)"
+msgstr "状态镜像（启用状态镜像的输出）"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Stats"
 msgstr "属性"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Step"
+msgstr "步进"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Stop"
+msgstr "停止"
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "STOP"
@@ -319,17 +1188,140 @@ msgstr "停止游戏"
 msgid "Teleport"
 msgstr "传送"
 
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "The bot could not do that"
+msgstr "机器人无法执行此操作"
+
+#: src/osc-bot/ui/labels.ts
+msgid "The mod stays on while the input is on. Ideal for avatar bools."
+msgstr "输入开启时模组保持开启，适合头像布尔参数。"
+
+#: src/app/app.tsx
+msgid "The OSC studio hit a problem"
+msgstr "OSC 工作室出现问题"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "This game only"
+msgstr "仅此游戏"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "This Wand build may be patched with an older Enhancer. Re-patch to get the OSC bot."
+msgstr "此 Wand 可能是用旧版 Enhancer 修补的。请重新修补以获得 OSC 机器人。"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Toggle"
+msgstr "切换"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Toggles currently on"
+msgstr "当前开启的开关"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "TouchOSC & co · port 8000"
+msgstr "TouchOSC 等 · 端口 8000"
+
+#. placeholder {0}: latest.in
+#. placeholder {1}: latest.out
+#: src/osc-bot/ui/TrafficSparkline.tsx
+msgid "Traffic over the last minute: {0} in and {1} out per second"
+msgstr "最近一分钟流量：每秒入 {0}、出 {1}"
+
 #: src/trainer/ui/TrainerHeader.tsx
 msgid "Trainer Active"
 msgstr "训练器已激活"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Turn every toggle off"
+msgstr "关闭所有开关"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Turn off"
+msgstr "关闭"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Turn on"
+msgstr "开启"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Turn the bot on to see traffic."
+msgstr "开启机器人以查看流量。"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Turn the OSC bot off"
+msgstr "关闭 OSC 机器人"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Turn the OSC bot on"
+msgstr "开启 OSC 机器人"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Turns every toggle mod off at once."
+msgstr "一次关闭所有开关类模组。"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Typing"
+msgstr "正在输入"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Typing indicator"
+msgstr "输入指示"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "UDP {address}"
+msgstr "UDP {address}"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "UI size"
+msgstr "界面大小"
+
+#. placeholder {0}: cheat.name
+#: src/trainer/ui/CheatTile.tsx
+msgid "Unpin {0}"
+msgstr "取消置顶 {0}"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Uptime"
+msgstr "运行时长"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Value to write"
+msgstr "写入的值"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Vehicles"
 msgstr "载具"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/labels.ts
+msgid "Version"
+msgstr "版本"
+
+#: src/app/ui/FloatingDock.tsx
+msgid "View"
+msgstr "视图"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Violet"
 msgstr "紫色"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "VRChat"
+msgstr "VRChat"
+
+#: src/osc-bot/ui/labels.ts
+msgid "VRChat Chatbox"
+msgstr "VRChat 聊天框"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "VRChat chatbox · avatar parameters · OSC controllers"
+msgstr "VRChat 聊天框 · 头像参数 · OSC 控制器"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "VRChat sends to 9001, TouchOSC to 8000."
+msgstr "VRChat 发送到 9001，TouchOSC 发送到 8000。"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Waiting for OSC traffic…"
+msgstr "正在等待 OSC 流量…"
 
 #. placeholder {0}: WEB_CONTRACT.defaultRemotePort
 #: src/app/ui/SettingsDrawer.tsx
@@ -340,6 +1332,42 @@ msgstr "wand remote · 端口 {0}"
 msgid "Weapons"
 msgstr "武器"
 
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Where this binding applies"
+msgstr "此绑定的适用范围"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "While idle"
+msgstr "空闲时"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Wide columns"
+msgstr "宽列"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Wildcards work: * ? [1-4] {alternatives}"
+msgstr "支持通配符：* ? [1-4] {alternatives}"
+
 #: src/trainer/ui/category-labels.ts
 msgid "World"
 msgstr "世界"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Writes the incoming value. Rescale maps a 0–1 fader onto the mod's range."
+msgstr "写入传入的值。重新映射会将 0–1 推子映射到模组的范围。"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Writes the value you choose here on every press."
+msgstr "每次按下时写入此处选择的值。"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "You"
+msgstr "你"
+
+#: src/app/app.tsx
+msgid "Your bot keeps running in Wand. Reload the studio to continue."
+msgstr "你的机器人仍在 Wand 中运行。重新加载工作室即可继续。"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Zero-config addresses for every mod"
+msgstr "每个模组的免配置地址"

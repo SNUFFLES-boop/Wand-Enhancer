@@ -7,8 +7,12 @@ Local mobile-friendly web panel for Wand.
 ```bash
 pnpm install
 pnpm dev
-pnpm bridge:demo
+pnpm build && pnpm bridge:demo           # production bridge + fixture trainer on :3223
+pnpm build && pnpm bridge:demo --vrchat  # also simulate VRChat on UDP 9000/9001
 ```
+
+The demo bridge is the real `dist/bridge.cjs` (OSC bot included) seeded with
+`fixtures/demo-session.json`. Its OSC profile is kept in the OS temp folder.
 
 Hosted access on the local machine:
 
