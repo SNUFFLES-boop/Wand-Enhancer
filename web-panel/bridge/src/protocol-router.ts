@@ -37,6 +37,12 @@ export function validateClientMessage(message: unknown, handshaken: boolean) {
         if (type === 'remote_command') {
             return invalid('invalid_command', 'Unknown remote command.');
         }
+        if (type === 'osc_config') {
+            return invalid('invalid_osc_config', 'An OSC bot config object is required.');
+        }
+        if (type === 'osc_command') {
+            return invalid('invalid_osc_command', 'Unknown or incomplete OSC bot command.');
+        }
         return invalid('unknown_message', 'Unknown protocol message type.');
     }
 

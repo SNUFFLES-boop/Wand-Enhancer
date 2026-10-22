@@ -2,11 +2,13 @@ import { WEB_CONTRACT } from '../../protocol/contract';
 import {
     type HelloMessage,
     type IncomingMessage,
+    type OscCommandPayload,
     type OutgoingMessage,
     PROTOCOL_VERSION,
     type RemoteCommandMessage,
     type SetValueMessage,
 } from '../../protocol/messages';
+import type { OscBotConfig } from '../../protocol/osc';
 import { isIncomingMessage } from '../../protocol/validation';
 
 type SocketHandlers = {
@@ -81,6 +83,27 @@ export class RemoteSessionClient {
 
     stopPlaying(gameId?: string, titleId?: string): boolean {
         return this.sendCommand('stop', gameId, titleId);
+    }
+
+    updateOscConfig(config: OscBotConfig): string | null {
+        const requestId = createRequestId('osc_config');
+        return this.send({
+            type: 'osc_config',
+            version: PROTOCOL_VERSION,
+            requestId,
+            payload: { config },
+        })
+            ? requestId
+            : null;
+    }
+
+    sendOscCommand(payload: OscCommandPayload): boolean {
+        return this.send({
+            type: 'osc_command',
+            version: PROTOCOL_VERSION,
+            requestId: createRequestId(`osc_${payload.action}`),
+            payload,
+        });
     }
 
     private send(message: OutgoingMessage): boolean {

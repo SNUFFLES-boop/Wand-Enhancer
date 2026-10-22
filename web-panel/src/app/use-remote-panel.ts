@@ -3,7 +3,9 @@ import { useCallback, useMemo, useState } from 'react';
 import { ECheatType } from '../../protocol/messages';
 import { buildLibraryGames, getCurrentGame, type LibraryGame } from '../library/model/games';
 import { useGamePins } from '../library/pinned-games/use-game-pins';
+import type { OscStudioSession } from '../osc-bot/model/use-osc-studio';
 import { useRemoteSession } from '../remote-session/use-remote-session';
+import { loadString, saveString } from '../shared/storage';
 import { buildPinnedGroup, filterGroups, groupCheatsByCategory } from '../trainer/model/categories';
 import { getPinnedStorageKey } from '../trainer/pinned-cheats/pinned-cheat-storage';
 import { usePinnedCheats } from '../trainer/pinned-cheats/use-pinned-cheats';
@@ -11,13 +13,31 @@ import { getPresetStorageKey, type RemotePreset } from '../trainer/presets/prese
 import { usePresets } from '../trainer/presets/use-presets';
 import { useDockAutoHide } from './use-dock-auto-hide';
 
+// String values are persisted per device; do not rename the right-hand side.
+export enum EPanelView {
+    Mods = 'mods',
+    Osc = 'osc',
+}
+
+const VIEW_STORAGE_KEY = 'wand-remote.view.v1';
+
+function loadView(): EPanelView {
+    return loadString(VIEW_STORAGE_KEY) === EPanelView.Osc ? EPanelView.Osc : EPanelView.Mods;
+}
+
 export function useRemotePanel() {
     const session = useRemoteSession();
     const [cheatQuery, setCheatQuery] = useState('');
     const [gameQuery, setGameQuery] = useState('');
     const [leftOpen, setLeftOpen] = useState(false);
     const [rightOpen, setRightOpen] = useState(false);
+    const [view, setViewState] = useState(loadView);
     const dock = useDockAutoHide();
+
+    const setView = useCallback((next: EPanelView) => {
+        setViewState(next);
+        saveString(VIEW_STORAGE_KEY, next);
+    }, []);
 
     const activeTrainer = session.state.trainerMeta?.trainer ?? null;
     const { pinnedGameIds, togglePin: toggleGamePin } = useGamePins();
@@ -90,6 +110,26 @@ export function useRemotePanel() {
         [launchGame],
     );
 
+    const launchableGames = useMemo(
+        () =>
+            libraryGames
+                .filter((game) => game.gameId)
+                .map((game) => ({ gameId: game.gameId as string, title: game.title })),
+        [libraryGames],
+    );
+
+    const oscSession: OscStudioSession = {
+        connected: session.connected,
+        osc: session.state.osc,
+        trainerMeta,
+        values,
+        gameStatus: session.state.gameStatus,
+        lastChange: session.state.lastChange,
+        launchableGames,
+        editOscConfig: session.editOscConfig,
+        sendOscCommand: session.sendOscCommand,
+    };
+
     const totalVisibleCheats = filteredGroups.reduce(
         (count, group) => count + group.cheats.length,
         filteredPinnedGroup?.cheats.length ?? 0,
@@ -137,7 +177,14 @@ export function useRemotePanel() {
             playGame,
             stopPlaying: session.stopPlaying,
         },
+        osc: {
+            session: oscSession,
+            state: session.state.osc?.status.state ?? null,
+            enabled: Boolean(session.state.osc?.config.enabled),
+        },
         shell: {
+            view,
+            setView,
             leftOpen,
             rightOpen,
             openSettings: () => setLeftOpen(true),

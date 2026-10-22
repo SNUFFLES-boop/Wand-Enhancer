@@ -33,6 +33,7 @@ module.exports = {
     IPC_CHANNEL,
     KNOWN_CHEAT_TYPES,
     MAX_WS_FRAME_BYTES: 1024 * 1024,
+    OSC_CONFIG_FILE_NAME: 'wand-enhancer-osc.json',
     PORT_SCAN_RANGE: WEB_CONTRACT.portScanRange,
     REMOTE_ASSETS_PREFIX: WEB_CONTRACT.assetsPath,
     REMOTE_BASE_PATH: WEB_CONTRACT.basePath,

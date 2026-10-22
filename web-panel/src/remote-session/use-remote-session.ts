@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 
-import type { CheatSchema, InstalledAppSummary } from '../../protocol/messages';
+import type { CheatSchema, InstalledAppSummary, OscCommandPayload } from '../../protocol/messages';
+import type { OscBotConfig } from '../../protocol/osc';
 import { normalizeCheatValue } from '../trainer/model/values';
 import { RemoteSessionClient } from './remote-session.client';
 import { protocolAction } from './remote-session.protocol';
@@ -14,6 +15,8 @@ import { selectIsConnected, selectPendingTargets } from './selectors';
 
 const RECONNECT_BASE_DELAY_MS = 2000;
 const RECONNECT_MAX_DELAY_MS = 30000;
+// Typing in a template must not send one config per keystroke.
+const OSC_CONFIG_DEBOUNCE_MS = 350;
 
 export function useRemoteSession() {
     const [state, dispatch] = useReducer(
@@ -28,6 +31,8 @@ export function useRemoteSession() {
     // True if user disconnected intentionally; prevents auto-reconnect on refocus.
     const userDisconnectedRef = useRef(false);
     const connectRef = useRef<() => void>(() => {});
+    const oscConfigTimerRef = useRef<number | null>(null);
+    const pendingOscConfigRef = useRef<OscBotConfig | null>(null);
     useEffect(() => {
         stateRef.current = state;
     }, [state]);
@@ -175,6 +180,62 @@ export function useRemoteSession() {
         }
     }, []);
 
+    const flushOscConfig = useCallback(() => {
+        if (oscConfigTimerRef.current !== null) {
+            window.clearTimeout(oscConfigTimerRef.current);
+            oscConfigTimerRef.current = null;
+        }
+        const config = pendingOscConfigRef.current;
+        pendingOscConfigRef.current = null;
+        if (!config) return;
+
+        const requestId = isReadyToSend(stateRef.current, clientRef.current)
+            ? (clientRef.current?.updateOscConfig(config) ?? null)
+            : null;
+        if (!requestId) {
+            dispatch({
+                type: 'error',
+                message: 'The OSC bot settings could not reach the bridge.',
+            });
+            return;
+        }
+        dispatch({ type: 'oscConfigSent', requestId });
+    }, []);
+
+    /** Applies an edit locally right away and syncs it to the bridge (debounced unless immediate). */
+    const editOscConfig = useCallback(
+        (config: OscBotConfig, immediate = false) => {
+            dispatch({ type: 'oscConfigEdited', config });
+            pendingOscConfigRef.current = config;
+            if (immediate) {
+                flushOscConfig();
+                return;
+            }
+            if (oscConfigTimerRef.current !== null) {
+                window.clearTimeout(oscConfigTimerRef.current);
+            }
+            oscConfigTimerRef.current = window.setTimeout(flushOscConfig, OSC_CONFIG_DEBOUNCE_MS);
+        },
+        [flushOscConfig],
+    );
+
+    const sendOscCommand = useCallback((payload: OscCommandPayload): boolean => {
+        if (!isReadyToSend(stateRef.current, clientRef.current)) {
+            dispatch({ type: 'error', message: 'The bridge socket is not connected.' });
+            return false;
+        }
+        return Boolean(clientRef.current?.sendOscCommand(payload));
+    }, []);
+
+    useEffect(
+        () => () => {
+            if (oscConfigTimerRef.current !== null) {
+                window.clearTimeout(oscConfigTimerRef.current);
+            }
+        },
+        [],
+    );
+
     useEffect(() => {
         connectRef.current = connect;
     }, [connect]);
@@ -217,6 +278,8 @@ export function useRemoteSession() {
         changeCheat,
         launchGame,
         stopPlaying,
+        editOscConfig,
+        sendOscCommand,
     };
 }
 

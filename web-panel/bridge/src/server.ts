@@ -16,6 +16,8 @@ const {
 const { createBridgeLogger } = require('./logger');
 const { normalizeRemoteCommandAction, normalizeRemoteCommandResult } = require('./normalizers');
 const { createBridgeState } = require('./bridge-state');
+const { createOscBot } = require('./osc/osc-bot');
+const { createOscConfigStore } = require('./osc/osc-config-store');
 const { validateClientMessage, validateSetValueTarget } = require('./protocol-router');
 const { getAdvertisedUrls, resolveInsideRoot, serveFile } = require('./server-files');
 const { cloneValue, isValidPort, safeString, toStringId } = require('./utils');
@@ -31,6 +33,8 @@ const {
 
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Socket } from 'node:net';
+import type { OscCommandPayload } from '../../protocol/messages';
+import type { OscBot, OscBotEvent } from './osc/osc-bot';
 import type { BridgeClient, BridgeOptions } from './types';
 
 const HTTP_BAD_REQUEST = 400;
@@ -82,6 +86,7 @@ function createBridgeServer(options: BridgeOptions = {}) {
     let commandHandler: CommandHandler | null = null;
     let listening = false;
     let closed = false;
+    let oscBot: OscBot | null = null;
     const bridgeState = createBridgeState({
         clients,
         log,
@@ -90,6 +95,27 @@ function createBridgeServer(options: BridgeOptions = {}) {
             listening,
             remoteUrl: globalThis.__wandRemoteBridgeUrl,
         }),
+        onEvent: (event: OscBotEvent) => oscBot?.handleEvent(event),
+    });
+    oscBot = createOscBot({
+        log,
+        store: createOscConfigStore(options.oscConfigFile || process.env.WAND_OSC_CONFIG_FILE, log),
+        publish: bridgeState.broadcast,
+        host: {
+            getTrainerMeta: () => bridgeState.snapshot?.trainerMeta ?? null,
+            getValues: () => bridgeState.snapshot?.trainerValues?.values ?? {},
+            getGameStatus: () => bridgeState.gameStatus,
+            getInstalledApps: () => bridgeState.installedApps,
+            setValue: async (target: string, value: unknown) =>
+                !(await writeTrainerValue(target, value)),
+            runCommand: async (action: string, gameId: string | null) => {
+                if (!commandHandler) return false;
+                const result = await Promise.resolve(
+                    commandHandler({ action, gameId: gameId ?? '', titleId: '' }),
+                );
+                return normalizeRemoteCommandResult(result, { action, gameId, titleId: null }).ok;
+            },
+        },
     });
 
     function setAdvertisedPort(nextPort: number) {
@@ -239,30 +265,37 @@ function createBridgeServer(options: BridgeOptions = {}) {
         }
     }
 
-    async function handleSetValueMessage(client: BridgeClient, message: ClientMessage) {
+    /**
+     * The single write path into the trainer, shared by panel `set_value` messages and the
+     * OSC bot. Resolves to an error, or undefined once the renderer accepted the value.
+     */
+    async function writeTrainerValue(
+        target: unknown,
+        value: unknown,
+        requestedTrainerId?: unknown,
+        cheatId?: string,
+    ): Promise<{ code: string; message: string } | undefined> {
         const currentSnapshot = bridgeState.snapshot;
-        const validation = validateSetValueTarget(message, currentSnapshot);
         const trainerId = currentSnapshot?.trainerMeta?.trainer?.trainerId || '';
-        const target = validation.ok ? validation.target : safeString(message.payload?.target);
-        const reply = (error?: { code: string; message: string }) =>
-            sendJson(
-                client,
-                'set_value_result',
-                { ok: !error, trainerId, target, error },
-                message.requestId ?? null,
-            );
-
+        const validation = validateSetValueTarget(
+            {
+                payload: {
+                    trainerId: requestedTrainerId === undefined ? trainerId : requestedTrainerId,
+                    target,
+                    value,
+                },
+            },
+            currentSnapshot,
+        );
         if (!validation.ok) {
-            reply(validation.error);
-            return;
+            return validation.error;
         }
 
         if (!setValueHandler) {
-            reply({
+            return {
                 code: 'bridge_not_ready',
                 message: 'The local bridge is not ready to write trainer values yet.',
-            });
-            return;
+            };
         }
 
         let accepted = false;
@@ -270,28 +303,48 @@ function createBridgeServer(options: BridgeOptions = {}) {
             accepted = await Promise.resolve(
                 setValueHandler({
                     trainerId,
-                    target,
+                    target: validation.target,
                     value: cloneValue(validation.value),
-                    cheatId:
-                        typeof message.payload?.cheatId === 'string'
-                            ? message.payload.cheatId
-                            : undefined,
+                    cheatId: cheatId ?? validation.cheat?.uuid,
                 }),
             );
         } catch (error) {
             log('warn', 'Set-value handler failed.', error);
-            reply({ code: 'set_failed', message: 'Failed to set trainer value.' });
-            return;
+            return { code: 'set_failed', message: 'Failed to set trainer value.' };
         }
 
-        reply(
-            accepted
-                ? undefined
-                : {
-                      code: 'set_rejected',
-                      message: 'The trainer rejected the requested value.',
-                  },
+        return accepted
+            ? undefined
+            : {
+                  code: 'set_rejected',
+                  message: 'The trainer rejected the requested value.',
+              };
+    }
+
+    async function handleSetValueMessage(client: BridgeClient, message: ClientMessage) {
+        const trainerId = bridgeState.snapshot?.trainerMeta?.trainer?.trainerId || '';
+        const target = safeString(message.payload?.target);
+        const error = await writeTrainerValue(
+            message.payload?.target,
+            message.payload?.value,
+            message.payload?.trainerId,
+            typeof message.payload?.cheatId === 'string' ? message.payload.cheatId : undefined,
         );
+        sendJson(
+            client,
+            'set_value_result',
+            { ok: !error, trainerId, target, error },
+            message.requestId ?? null,
+        );
+    }
+
+    function handleOscCommandMessage(client: BridgeClient, message: ClientMessage) {
+        const result = oscBot?.runCommand(message.payload as OscCommandPayload) ?? {
+            ok: false,
+            action: message.payload?.action,
+            error: { code: 'bridge_not_ready', message: 'The OSC bot is not running.' },
+        };
+        sendJson(client, 'osc_command_result', result, message.requestId ?? null);
     }
 
     async function handleClientMessage(client: BridgeClient, message: ClientMessage) {
@@ -317,6 +370,30 @@ function createBridgeServer(options: BridgeOptions = {}) {
                 message.requestId ?? null,
             );
             bridgeState.sendSnapshot(client);
+            if (oscBot) sendJson(client, 'osc_state', oscBot.getState());
+            return;
+        }
+
+        if (message?.type === 'osc_config') {
+            const requestId = typeof message.requestId === 'string' ? message.requestId : null;
+            const saved = oscBot?.updateConfig(message.payload?.config, requestId);
+            if (saved === false) {
+                sendJson(
+                    client,
+                    'error',
+                    {
+                        code: 'osc_config_not_saved',
+                        message:
+                            'The OSC bot settings were applied but could not be saved to disk.',
+                    },
+                    message.requestId ?? null,
+                );
+            }
+            return;
+        }
+
+        if (message?.type === 'osc_command') {
+            handleOscCommandMessage(client, message);
             return;
         }
 
@@ -517,6 +594,7 @@ function createBridgeServer(options: BridgeOptions = {}) {
             return globalThis.__wandRemoteBridgeUrl;
         },
         close() {
+            oscBot?.close();
             for (const client of clients) {
                 closeClient(client);
             }

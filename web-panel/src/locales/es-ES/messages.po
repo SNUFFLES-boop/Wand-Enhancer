@@ -13,6 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#. placeholder {0}: binding.cheatName
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "\"{0}\" is not in this trainer"
+msgstr "\"{0}\" no está en este trainer"
+
 #. placeholder {0}: games.length
 #: src/library/ui/LibraryDrawer.tsx
 msgid "{0, plural, one {# game detected} other {# games detected}}"
@@ -31,9 +36,30 @@ msgstr "{cheatCount} mods"
 msgid "{cheatCount} mods · {enabledCount}/{toggleCount} on"
 msgstr "{cheatCount} mods · {enabledCount}/{toggleCount} activos"
 
-#: src/app/ui/SettingsDrawer.tsx
-msgid "Accent Color"
-msgstr "Color de acento"
+#. placeholder {0}: OSC_LIMITS.chatboxMaxChars
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "{length} of {0} characters"
+msgstr "{length} de {0} caracteres"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "1 0.5 true \"text\""
+msgstr "1 0.5 true \"texto\""
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "1 while a game or trainer runs"
+msgstr "1 mientras un juego o trainer está activo"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "1 while a trainer is loaded"
+msgstr "1 mientras hay un trainer cargado"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Action"
+msgstr "Acción"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Active mods"
+msgstr "Mods activos"
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Active Session"
@@ -43,27 +69,154 @@ msgstr "Sesión activa"
 msgid "Add"
 msgstr "Añadir"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Add message"
+msgstr "Añadir mensaje"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Add output"
+msgstr "Añadir salida"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Add Preset"
 msgstr "Añadir preajuste"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Add VRChat"
+msgstr "Añadir VRChat"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Address"
+msgstr "Dirección"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Address Map"
+msgstr "Mapa de direcciones"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Address prefix"
+msgstr "Prefijo de dirección"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Address to send"
+msgstr "Dirección a enviar"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Adds the amount on every press. Use a negative amount to step down."
+msgstr "Suma la cantidad en cada pulsación. Usa una cantidad negativa para bajar."
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "All"
+msgstr "Todo"
 
 #: src/library/ui/LibraryDrawer.tsx
 msgid "All Games"
 msgstr "Todos los juegos"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "All outputs"
+msgstr "Todas las salidas"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Allow LAN devices"
+msgstr "Permitir dispositivos LAN"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Amber"
 msgstr "Ámbar"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Ambient glow"
+msgstr "Brillo ambiental"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Amount per press"
+msgstr "Cantidad por pulsación"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Announce mod changes"
+msgstr "Anunciar cambios de mods"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Announcement template"
+msgstr "Plantilla de anuncio"
+
+#. placeholder {0}: config.prefix
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Answer on {0}/cheat/<mod> without any binding."
+msgstr "Responder en {0}/cheat/<mod> sin ninguna asignación."
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "any game"
+msgstr "cualquier juego"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Any game (by name)"
+msgstr "Cualquier juego (por nombre)"
+
+#: src/app/ui/SettingsDrawer.tsx
+msgid "Appearance"
+msgstr "Apariencia"
 
 #: src/trainer/controls/ActionButton.tsx
 msgid "Apply"
 msgstr "Aplicar"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Arguments"
+msgstr "Argumentos"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Auto-map every mod"
+msgstr "Mapear cada mod automáticamente"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Auto-map is off under Network, so these addresses are ignored."
+msgstr "El mapeo automático está desactivado en Red, así que estas direcciones se ignoran."
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Avatar params"
+msgstr "Parámetros de avatar"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Backup & restore"
+msgstr "Copia y restauración"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Bind"
+msgstr "Asignar"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Binding feedback"
+msgstr "Respuesta de asignaciones"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Bindings"
+msgstr "Asignaciones"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Bot is off"
+msgstr "Bot apagado"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Bot profile JSON"
+msgstr "Perfil del bot en JSON"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Bot uptime"
+msgstr "Tiempo activo del bot"
+
+#. placeholder {0}: binding.cheatName
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Bound to \"{0}\". Start a trainer to change the mod."
+msgstr "Asignado a \"{0}\". Inicia un trainer para cambiar el mod."
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Bridge"
 msgstr "Puente"
 
 #: src/app/ui/SessionPlaceholder.tsx
+#: src/osc-bot/ui/OscStudio.tsx
 msgid "Bridge offline"
 msgstr "Puente desconectado"
 
@@ -71,6 +224,7 @@ msgstr "Puente desconectado"
 msgid "Browse library"
 msgstr "Explorar biblioteca"
 
+#: src/osc-bot/ui/BindingsSection.tsx
 #: src/trainer/ui/QuickActions.tsx
 msgid "Cancel"
 msgstr "Cancelar"
@@ -83,13 +237,74 @@ msgstr "Desafío"
 msgid "Character"
 msgstr "Personaje"
 
+#: src/osc-bot/ui/labels.ts
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Chatbox"
+msgstr "Chatbox"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Chatbox + avatar · 9001 → 9000"
+msgstr "Chatbox + avatar · 9001 → 9000"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Chatbox bot"
+msgstr "Bot del chatbox"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Chatbox cleared"
+msgstr "Chatbox vaciado"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Chatbox message"
+msgstr "Mensaje del chatbox"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Chatbox stays empty"
+msgstr "El chatbox queda vacío"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Cheats"
 msgstr "Trucos"
 
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Choose a game…"
+msgstr "Elige un juego…"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Choose a mod…"
+msgstr "Elige un mod…"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Clear"
+msgstr "Limpiar"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Clear chatbox"
+msgstr "Vaciar chatbox"
+
 #: src/shared/ui/SearchInput.tsx
 msgid "Clear search"
 msgstr "Borrar búsqueda"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Clear the chatbox"
+msgstr "Vaciar el chatbox"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Cleared {sentAgo}s ago"
+msgstr "Vaciado hace {sentAgo} s"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Clock"
+msgstr "Hora"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Clock 12h"
+msgstr "Hora 12 h"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Close backup"
+msgstr "Cerrar copia"
 
 #: src/shared/ui/Drawer.tsx
 msgid "Close drawer"
@@ -107,39 +322,168 @@ msgstr "Cerrar ventana de preajuste"
 msgid "Close settings"
 msgstr "Cerrar ajustes"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Cobalt"
 msgstr "Cobalto"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Commands"
+msgstr "Comandos"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Compact"
+msgstr "Compacta"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Connect to Wand from Settings to configure the OSC bot."
+msgstr "Conéctate a Wand desde Ajustes para configurar el bot OSC."
+
+#: src/osc-bot/ui/labels.ts
+msgid "Controllers and avatar parameters → mods"
+msgstr "Controles y parámetros de avatar → mods"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copied"
+msgstr "Copiado"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copy"
+msgstr "Copiar"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Copy {address}"
+msgstr "Copiar {address}"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copy listen address"
+msgstr "Copiar dirección de escucha"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Copy the whole bot profile as JSON, or paste one in."
+msgstr "Copia el perfil completo del bot en JSON o pega uno."
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Counters reset"
+msgstr "Contadores reiniciados"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Cozy"
+msgstr "Cómoda"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Crafting"
 msgstr "Fabricación"
 
-#: src/app/ui/SettingsDrawer.tsx
+#. placeholder {0}: entry.address
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Create a binding for {0}"
+msgstr "Crear asignación para {0}"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Crimson"
 msgstr "Carmesí"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Current game title"
+msgstr "Título del juego actual"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Custom"
 msgstr "Personalizado"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Customize layout"
+msgstr "Personalizar diseño"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Cyan"
 msgstr "Cian"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Date"
+msgstr "Fecha"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Delete"
+msgstr "Eliminar"
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Delete message {0}"
+msgstr "Eliminar mensaje {0}"
 
 #. placeholder {0}: preset.name
 #: src/trainer/ui/QuickActions.tsx
 msgid "Delete preset {0}"
 msgstr "Eliminar preajuste {0}"
 
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Density"
+msgstr "Densidad"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Done"
+msgstr "Listo"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "e.g. ✦ Boss fight in {gameToken}!"
+msgstr "p. ej. ✦ ¡Jefe en {gameToken}!"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Echoes the mod's value back to this address, so faders and avatar toggles stay in sync."
+msgstr "Devuelve el valor del mod a esta dirección para que faders y toggles del avatar sigan sincronizados."
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Empty clears the chatbox when no game runs"
+msgstr "Vacío limpia el chatbox cuando no hay juego"
+
+#. placeholder {0}: binding.address
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/BindingsSection.tsx
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Enable {0}"
+msgstr "Activar {0}"
+
 #. placeholder {0}: trainer.totalCheats
 #: src/app/app.tsx
 msgid "END · {0} MODS"
 msgstr "FIN · {0} MODS"
 
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "End the running trainer"
+msgstr "Finalizar el trainer activo"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Ends the running trainer."
+msgstr "Finaliza el trainer activo."
+
 #: src/trainer/ui/category-labels.ts
 msgid "Enemies"
 msgstr "Enemigos"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Error"
+msgstr "Error"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Errors"
+msgstr "Errores"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Every mod already answers on the Address Map. Bindings map any other address, like an avatar parameter or a TouchOSC fader, to a mod or an action."
+msgstr "Cada mod ya responde en el Mapa de direcciones. Las asignaciones conectan cualquier otra dirección, como un parámetro de avatar o un fader de TouchOSC, a un mod o una acción."
+
+#: src/osc-bot/ui/labels.ts
+msgid "Every packet in and out"
+msgstr "Cada paquete de entrada y salida"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Fader smoothing"
+msgstr "Suavizado de faders"
 
 #: src/library/ui/LibraryDrawer.tsx
 #: src/trainer/ui/TrainerHeader.tsx
@@ -150,36 +494,156 @@ msgstr "Marcar favorito"
 msgid "Favorites"
 msgstr "Favoritos"
 
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Filter mods"
+msgstr "Filtrar mods"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Filter traffic"
+msgstr "Filtrar tráfico"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Finish customizing"
+msgstr "Terminar personalización"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Fires a one-shot mod such as Heal or Add money."
+msgstr "Activa un mod de un solo uso como Curar o Añadir dinero."
+
+#: src/osc-bot/ui/labels.ts
+msgid "Fixed"
+msgstr "Fijo"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Flips a toggle mod on every press. Releases are ignored."
+msgstr "Alterna un mod en cada pulsación. Las liberaciones se ignoran."
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Focused"
+msgstr "Centrado"
+
+#: src/osc-bot/ui/labels.ts
 #: src/trainer/ui/category-labels.ts
 msgid "Game"
 msgstr "Juego"
+
+#: src/app/app.tsx
+msgid "Game library"
+msgstr "Biblioteca de juegos"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Game to launch"
+msgstr "Juego a iniciar"
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "GO"
 msgstr "IR"
 
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Hide {title}"
+msgstr "Ocultar {title}"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Hide VRChat built-ins"
+msgstr "Ocultar parámetros de VRChat"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Hold"
+msgstr "Mantener"
+
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Host of {0}"
+msgstr "Host de {0}"
+
 #: src/app/ui/TopBar.tsx
 msgid "Idle · no game"
 msgstr "Inactivo · sin juego"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Idle message"
+msgstr "Mensaje en reposo"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Import"
+msgstr "Importar"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Import keeps the bot's on/off state as it is now."
+msgstr "Importar mantiene el estado encendido/apagado actual del bot."
+
+#: src/osc-bot/ui/MonitorSection.tsx
+#: src/osc-bot/ui/OscHero.tsx
+msgid "In"
+msgstr "Entrada"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Input from"
+msgstr "Entrada desde"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Input to"
+msgstr "Entrada hasta"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Insert a mod value"
+msgstr "Insertar valor de mod"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Insert token"
+msgstr "Insertar token"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Inventory"
 msgstr "Inventario"
 
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Issues"
+msgstr "Problemas"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Items"
 msgstr "Objetos"
 
+#: src/osc-bot/ui/OscHero.tsx
+msgid "LAN controller"
+msgstr "Control en LAN"
+
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Language"
 msgstr "Idioma"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Last mod"
+msgstr "Último mod"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Last value"
+msgstr "Último valor"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Launch"
+msgstr "Iniciar"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Launch a game by name or id"
+msgstr "Iniciar un juego por nombre o id"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Layout"
+msgstr "Diseño"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Learn"
+msgstr "Aprender"
 
 #: src/app/ui/FloatingDock.tsx
 #: src/library/ui/LibraryDrawer.tsx
 msgid "Library"
 msgstr "Biblioteca"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Lime"
 msgstr "Lima"
 
@@ -187,17 +651,148 @@ msgstr "Lima"
 msgid "LINKING"
 msgstr "CONECTANDO"
 
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Listen on every network interface so phones and tablets can send OSC."
+msgstr "Escuchar en todas las interfaces de red para que móviles y tabletas puedan enviar OSC."
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Listen port"
+msgstr "Puerto de escucha"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Listener"
+msgstr "Receptor"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Listener, outputs and backups"
+msgstr "Receptor, salidas y copias"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+#: src/osc-bot/ui/labels.ts
+msgid "Listening"
+msgstr "Escuchando"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Listening for a control…"
+msgstr "Esperando un control…"
+
 #: src/app/ui/StatusPill.tsx
 msgid "LIVE"
 msgstr "EN VIVO"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/labels.ts
+msgid "Live Monitor"
+msgstr "Monitor en vivo"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Live status above your avatar"
+msgstr "Estado en vivo sobre tu avatar"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Loading the OSC bot…"
+msgstr "Cargando el bot OSC…"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Magenta"
 msgstr "Magenta"
+
+#. placeholder {0}: binding.inputMin
+#. placeholder {1}: binding.inputMax
+#. placeholder {2}: range.min
+#. placeholder {3}: range.max
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Maps {0}–{1} onto {2}–{3}."
+msgstr "Mapea {0}–{1} a {2}–{3}."
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Maps the input range onto the mod's options."
+msgstr "Mapea el rango de entrada a las opciones del mod."
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Message"
+msgstr "Mensaje"
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Message {0}"
+msgstr "Mensaje {0}"
+
+#. placeholder {0}: rendered.length
+#. placeholder {1}: chatbox.intervalSeconds
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Message {position} of {0} · every {1}s"
+msgstr "Mensaje {position} de {0} · cada {1} s"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Midnight"
+msgstr "Medianoche"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Mod"
+msgstr "Mod"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Mod value…"
+msgstr "Valor de mod…"
+
+#: src/app/ui/FloatingDock.tsx
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Mods"
+msgstr "Mods"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Mods bar"
+msgstr "Barra de mods"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Mods in this trainer"
+msgstr "Mods en este trainer"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Mods on"
+msgstr "Mods activos"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Mods total"
+msgstr "Mods totales"
+
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Move {title} down"
+msgstr "Bajar {title}"
+
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Move {title} up"
+msgstr "Subir {title}"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "Move a fader, press a button or flip an avatar toggle."
+msgstr "Mueve un fader, pulsa un botón o cambia un toggle del avatar."
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Move message {0} down"
+msgstr "Bajar mensaje {0}"
+
+#. placeholder {0}: index + 1
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Move message {0} up"
+msgstr "Subir mensaje {0}"
 
 #: src/trainer/ui/QuickActions.tsx
 msgid "Name"
 msgstr "Nombre"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Nebula"
+msgstr "Nebulosa"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Network"
+msgstr "Red"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "New binding"
+msgstr "Nueva asignación"
 
 #: src/trainer/ui/QuickActions.tsx
 msgid "New preset"
@@ -207,6 +802,10 @@ msgstr "Nuevo preajuste"
 msgid "No active game session."
 msgstr "No hay sesión de juego activa."
 
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "No bindings yet"
+msgstr "Aún no hay asignaciones"
+
 #: src/app/ui/SessionPlaceholder.tsx
 msgid "No game is running yet. Open the library and launch one to start tweaking."
 msgstr "Aún no hay ningún juego en marcha. Abre la biblioteca e inicia uno para empezar a ajustar."
@@ -214,6 +813,10 @@ msgstr "Aún no hay ningún juego en marcha. Abre la biblioteca e inicia uno par
 #: src/library/ui/LibraryDrawer.tsx
 msgid "No games match \"{query}\""
 msgstr "Ningún juego coincide con «{query}»"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "No mod"
+msgstr "Sin mod"
 
 #. placeholder {0}: trainer.query
 #: src/app/app.tsx
@@ -224,17 +827,49 @@ msgstr "Ningún mod coincide con «{0}»"
 msgid "No options"
 msgstr "Sin opciones"
 
-#: src/app/ui/FloatingDock.tsx
-msgid "No session"
-msgstr "Sin sesión"
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "No output has Chatbox enabled yet. Add VRChat under Network."
+msgstr "Ninguna salida tiene Chatbox activado. Añade VRChat en Red."
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "No outputs: the bot can listen, but nothing will be sent."
+msgstr "Sin salidas: el bot puede escuchar, pero no enviará nada."
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Not valid JSON"
+msgstr "JSON no válido"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Nothing sent yet"
+msgstr "Nada enviado aún"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Notification sound"
+msgstr "Sonido de notificación"
 
 #: src/library/ui/LibraryDrawer.tsx
 msgid "Now Playing"
 msgstr "Jugando ahora"
 
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "off"
+msgstr "apagado"
+
 #: src/app/ui/StatusPill.tsx
 msgid "OFFLINE"
 msgstr "SIN CONEXIÓN"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "OLED"
+msgstr "OLED"
+
+#: src/osc-bot/ui/BindingsSection.tsx
+msgid "One /avatar/parameters/Wand… address per mod of this trainer"
+msgstr "Una dirección /avatar/parameters/Wand… por cada mod de este trainer"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "One-off chatbox message"
+msgstr "Mensaje puntual del chatbox"
 
 #: src/app/ui/SessionPlaceholder.tsx
 msgid "Open Settings"
@@ -244,13 +879,55 @@ msgstr "Abrir ajustes"
 msgid "Open Settings to point Wand at your trainer bridge over WebSocket."
 msgstr "Abre los ajustes para conectar Wand con tu puente de trainer por WebSocket."
 
+#: src/app/ui/FloatingDock.tsx
+msgid "OSC"
+msgstr "OSC"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "OSC address"
+msgstr "Dirección OSC"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "OSC has no password: anyone on this network can drive your mods."
+msgstr "OSC no tiene contraseña: cualquiera en esta red puede controlar tus mods."
+
+#: src/osc-bot/ui/MonitorSection.tsx
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Out"
+msgstr "Salida"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Output name"
+msgstr "Nombre de la salida"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Outputs"
+msgstr "Salidas"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Panic"
+msgstr "Pánico"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Panic Off"
 msgstr "Apagar todo"
 
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Pause"
+msgstr "Pausa"
+
+#: src/osc-bot/ui/TrafficSparkline.tsx
+msgid "peak {peak}/s"
+msgstr "pico {peak}/s"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Physics"
 msgstr "Física"
+
+#. placeholder {0}: cheat.name
+#: src/trainer/ui/CheatTile.tsx
+msgid "Pin {0}"
+msgstr "Fijar {0}"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Pinned"
@@ -264,22 +941,108 @@ msgstr "Jugar"
 msgid "Player"
 msgstr "Jugador"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Plays VRChat's chime for announcements."
+msgstr "Reproduce el aviso de VRChat en los anuncios."
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Point controllers at"
+msgstr "Apunta los controles a"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Pops a message whenever a mod changes, from any source."
+msgstr "Muestra un mensaje cada vez que cambia un mod, desde cualquier origen."
+
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Port of {0}"
+msgstr "Puerto de {0}"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Preset name"
 msgstr "Nombre del preajuste"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Press"
+msgstr "Pulsar"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Reduce motion"
+msgstr "Reducir movimiento"
+
+#: src/app/app.tsx
+msgid "Reload studio"
+msgstr "Recargar estudio"
+
+#. placeholder {0}: target.name
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Remove {0}"
+msgstr "Quitar {0}"
 
 #: src/library/ui/LibraryDrawer.tsx
 #: src/trainer/ui/TrainerHeader.tsx
 msgid "Remove favorite"
 msgstr "Quitar favorito"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Renders empty now · skipped"
+msgstr "Ahora queda vacío · se omite"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Reorder sections and hide the ones you do not use. Saved on this device."
+msgstr "Reordena secciones y oculta las que no uses. Se guarda en este dispositivo."
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Reply with the full state to the sender"
+msgstr "Responder al remitente con el estado completo"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Rescale input"
+msgstr "Reescalar entrada"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Reset"
+msgstr "Reiniciar"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Reset layout & theme"
+msgstr "Restablecer diseño y tema"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Resources"
 msgstr "Recursos"
 
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Resume ({hiddenSincePause} new)"
+msgstr "Reanudar ({hiddenSincePause} nuevos)"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Roomy"
+msgstr "Amplia"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Rotate every"
+msgstr "Rotar cada"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Rotates your messages to {chatboxOutputs} output(s)."
+msgstr "Rota tus mensajes en {chatboxOutputs} salida(s)."
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Rotation"
+msgstr "Rotación"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "Routing"
+msgstr "Enrutamiento"
+
 #: src/trainer/ui/QuickActions.tsx
 msgid "Save"
 msgstr "Guardar"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Say something in the chatbox…"
+msgstr "Di algo en el chatbox…"
 
 #: src/library/ui/LibraryDrawer.tsx
 msgid "Search games"
@@ -293,19 +1056,125 @@ msgstr "Buscar mods"
 msgid "Select a game"
 msgstr "Elige un juego"
 
+#: src/osc-bot/ui/ChatboxSection.tsx
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Send"
+msgstr "Enviar"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Send a chatbox message (tokens work)"
+msgstr "Enviar un mensaje al chatbox (con tokens)"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Send a test message"
+msgstr "Enviar un mensaje de prueba"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Send a value to set it. Append /toggle, /inc, /dec or /add to step. The name slug works as well as the id."
+msgstr "Envía un valor para fijarlo. Añade /toggle, /inc, /dec o /add para alternar o avanzar. El nombre simplificado funciona igual que el id."
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Send feedback"
+msgstr "Enviar respuesta"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Send only"
+msgstr "Solo envío"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Send to"
+msgstr "Enviar a"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Send to chatbox"
+msgstr "Enviar al chatbox"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Sends your message to the chatbox. Tokens are filled in live."
+msgstr "Envía tu mensaje al chatbox. Los tokens se rellenan en vivo."
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "Sent"
+msgstr "Enviado"
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Sent {sentAgo}s ago"
+msgstr "Enviado hace {sentAgo} s"
+
 #: src/app/ui/SettingsDrawer.tsx
 msgid "Session"
 msgstr "Sesión"
 
+#: src/osc-bot/ui/labels.ts
+msgid "Session time"
+msgstr "Tiempo de sesión"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Set"
+msgstr "Fijar"
+
+#: src/app/app.tsx
 #: src/app/ui/FloatingDock.tsx
 #: src/app/ui/SettingsDrawer.tsx
 #: src/app/ui/TopBar.tsx
 msgid "Settings"
 msgstr "Ajustes"
 
+#: src/osc-bot/ui/StudioSection.tsx
+msgid "Show {title}"
+msgstr "Mostrar {title}"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Show what you are playing in VRChat's chatbox and drive mods from avatar parameters, TouchOSC, Stream Deck or any OSC app."
+msgstr "Muestra a qué juegas en el chatbox de VRChat y controla mods desde parámetros de avatar, TouchOSC, Stream Deck o cualquier app OSC."
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Shows the typing bubble before each message."
+msgstr "Muestra la burbuja de escritura antes de cada mensaje."
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Skips ripples, slides and pulses."
+msgstr "Omite ondas, deslizamientos y pulsos."
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Slate"
+msgstr "Pizarra"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Start a trainer to pick a mod."
+msgstr "Inicia un trainer para elegir un mod."
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Start a trainer to see its mod addresses."
+msgstr "Inicia un trainer para ver las direcciones de sus mods."
+
+#: src/osc-bot/ui/labels.ts
+msgid "Starting…"
+msgstr "Iniciando…"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Starts the trainer for the game you pick."
+msgstr "Inicia el trainer del juego que elijas."
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "State mirror"
+msgstr "Espejo de estado"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "State mirror (outputs with State mirror on)"
+msgstr "Espejo de estado (salidas con Espejo de estado activo)"
+
 #: src/trainer/ui/category-labels.ts
 msgid "Stats"
 msgstr "Estadísticas"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Step"
+msgstr "Paso"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Stop"
+msgstr "Detener"
 
 #: src/app/ui/SettingsDrawer.tsx
 msgid "STOP"
@@ -319,17 +1188,140 @@ msgstr "Detener"
 msgid "Teleport"
 msgstr "Teletransporte"
 
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "The bot could not do that"
+msgstr "El bot no pudo hacerlo"
+
+#: src/osc-bot/ui/labels.ts
+msgid "The mod stays on while the input is on. Ideal for avatar bools."
+msgstr "El mod sigue activo mientras la entrada lo esté. Ideal para bools de avatar."
+
+#: src/app/app.tsx
+msgid "The OSC studio hit a problem"
+msgstr "El estudio OSC tuvo un problema"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "This game only"
+msgstr "Solo este juego"
+
+#: src/osc-bot/ui/OscStudio.tsx
+msgid "This Wand build may be patched with an older Enhancer. Re-patch to get the OSC bot."
+msgstr "Esta versión de Wand puede estar parcheada con un Enhancer antiguo. Vuelve a parchear para obtener el bot OSC."
+
+#: src/osc-bot/ui/labels.ts
+msgid "Toggle"
+msgstr "Alternar"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Toggles currently on"
+msgstr "Toggles activos ahora"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "TouchOSC & co · port 8000"
+msgstr "TouchOSC y otros · puerto 8000"
+
+#. placeholder {0}: latest.in
+#. placeholder {1}: latest.out
+#: src/osc-bot/ui/TrafficSparkline.tsx
+msgid "Traffic over the last minute: {0} in and {1} out per second"
+msgstr "Tráfico del último minuto: {0} de entrada y {1} de salida por segundo"
+
 #: src/trainer/ui/TrainerHeader.tsx
 msgid "Trainer Active"
 msgstr "Trainer activo"
+
+#: src/osc-bot/ui/AddressBookSection.tsx
+msgid "Turn every toggle off"
+msgstr "Desactivar todos los toggles"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Turn off"
+msgstr "Desactivar"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Turn on"
+msgstr "Activar"
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Turn the bot on to see traffic."
+msgstr "Activa el bot para ver el tráfico."
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Turn the OSC bot off"
+msgstr "Apagar el bot OSC"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Turn the OSC bot on"
+msgstr "Encender el bot OSC"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Turns every toggle mod off at once."
+msgstr "Desactiva todos los mods de tipo toggle a la vez."
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "Typing"
+msgstr "Escribiendo"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "Typing indicator"
+msgstr "Indicador de escritura"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "UDP {address}"
+msgstr "UDP {address}"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "UI size"
+msgstr "Tamaño de la interfaz"
+
+#. placeholder {0}: cheat.name
+#: src/trainer/ui/CheatTile.tsx
+msgid "Unpin {0}"
+msgstr "Desfijar {0}"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "Uptime"
+msgstr "Activo"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Value to write"
+msgstr "Valor a escribir"
 
 #: src/trainer/ui/category-labels.ts
 msgid "Vehicles"
 msgstr "Vehículos"
 
-#: src/app/ui/SettingsDrawer.tsx
+#: src/osc-bot/ui/labels.ts
+msgid "Version"
+msgstr "Versión"
+
+#: src/app/ui/FloatingDock.tsx
+msgid "View"
+msgstr "Vista"
+
+#: src/appearance/ui/AppearanceSettings.tsx
 msgid "Violet"
 msgstr "Violeta"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "VRChat"
+msgstr "VRChat"
+
+#: src/osc-bot/ui/labels.ts
+msgid "VRChat Chatbox"
+msgstr "Chatbox de VRChat"
+
+#: src/osc-bot/ui/OscHero.tsx
+msgid "VRChat chatbox · avatar parameters · OSC controllers"
+msgstr "Chatbox de VRChat · parámetros de avatar · controles OSC"
+
+#: src/osc-bot/ui/NetworkSection.tsx
+msgid "VRChat sends to 9001, TouchOSC to 8000."
+msgstr "VRChat envía al 9001; TouchOSC, al 8000."
+
+#: src/osc-bot/ui/MonitorSection.tsx
+msgid "Waiting for OSC traffic…"
+msgstr "Esperando tráfico OSC…"
 
 #. placeholder {0}: WEB_CONTRACT.defaultRemotePort
 #: src/app/ui/SettingsDrawer.tsx
@@ -340,6 +1332,42 @@ msgstr "wand remote · puerto {0}"
 msgid "Weapons"
 msgstr "Armas"
 
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Where this binding applies"
+msgstr "Dónde se aplica esta asignación"
+
+#: src/osc-bot/ui/ChatboxSection.tsx
+msgid "While idle"
+msgstr "En reposo"
+
+#: src/appearance/ui/AppearanceSettings.tsx
+msgid "Wide columns"
+msgstr "Columnas anchas"
+
+#: src/osc-bot/ui/BindingEditor.tsx
+msgid "Wildcards work: * ? [1-4] {alternatives}"
+msgstr "Funcionan comodines: * ? [1-4] {alternatives}"
+
 #: src/trainer/ui/category-labels.ts
 msgid "World"
 msgstr "Mundo"
+
+#: src/osc-bot/ui/labels.ts
+msgid "Writes the incoming value. Rescale maps a 0–1 fader onto the mod's range."
+msgstr "Escribe el valor entrante. Reescalar mapea un fader 0–1 al rango del mod."
+
+#: src/osc-bot/ui/labels.ts
+msgid "Writes the value you choose here on every press."
+msgstr "Escribe el valor que elijas aquí en cada pulsación."
+
+#: src/osc-bot/ui/ChatboxPreview.tsx
+msgid "You"
+msgstr "Tú"
+
+#: src/app/app.tsx
+msgid "Your bot keeps running in Wand. Reload the studio to continue."
+msgstr "Tu bot sigue funcionando en Wand. Recarga el estudio para continuar."
+
+#: src/osc-bot/ui/labels.ts
+msgid "Zero-config addresses for every mod"
+msgstr "Direcciones sin configurar para cada mod"

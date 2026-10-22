@@ -1,3 +1,5 @@
+import type { OscActivityEntry, OscArgPreview, OscBotConfig, OscBotStatus } from './osc';
+
 export { PROTOCOL_VERSION } from './contract.js';
 
 // String values mirror the wire protocol; do not rename the right-hand side.
@@ -172,6 +174,42 @@ export type RemoteCommandResultPayload = {
     };
 };
 
+export type OscStatePayload = {
+    config: OscBotConfig;
+    status: OscBotStatus;
+    /** Most recent activity, oldest first; later entries arrive through `osc_activity`. */
+    activity: OscActivityEntry[];
+};
+
+export type OscStatusPayload = {
+    status: OscBotStatus;
+};
+
+export type OscActivityPayload = {
+    entries: OscActivityEntry[];
+};
+
+export type OscConfigPayload = {
+    config: OscBotConfig;
+};
+
+export type OscCommandAction = 'send' | 'chatbox_send' | 'chatbox_clear' | 'reset_stats';
+
+export type OscCommandPayload =
+    | { action: 'send'; address: string; args: OscArgPreview[]; targetId?: string | null }
+    | { action: 'chatbox_send'; text: string }
+    | { action: 'chatbox_clear' }
+    | { action: 'reset_stats' };
+
+export type OscCommandResultPayload = {
+    ok: boolean;
+    action: OscCommandAction;
+    error?: {
+        code: string;
+        message: string;
+    };
+};
+
 export type ErrorPayload = {
     code: string;
     message: string;
@@ -221,6 +259,15 @@ export type RemoteCommandResultMessage = MessageEnvelope<
     RemoteCommandResultPayload
 >;
 export type ErrorMessage = MessageEnvelope<'error', ErrorPayload>;
+export type OscStateMessage = MessageEnvelope<'osc_state', OscStatePayload>;
+export type OscStatusMessage = MessageEnvelope<'osc_status', OscStatusPayload>;
+export type OscActivityMessage = MessageEnvelope<'osc_activity', OscActivityPayload>;
+export type OscCommandResultMessage = MessageEnvelope<
+    'osc_command_result',
+    OscCommandResultPayload
+>;
+export type OscConfigMessage = MessageEnvelope<'osc_config', OscConfigPayload>;
+export type OscCommandMessage = MessageEnvelope<'osc_command', OscCommandPayload>;
 
 export type IncomingMessage =
     | HelloAckMessage
@@ -232,6 +279,15 @@ export type IncomingMessage =
     | TrainerChangedMessage
     | SetValueResultMessage
     | RemoteCommandResultMessage
+    | OscStateMessage
+    | OscStatusMessage
+    | OscActivityMessage
+    | OscCommandResultMessage
     | ErrorMessage;
 
-export type OutgoingMessage = HelloMessage | SetValueMessage | RemoteCommandMessage;
+export type OutgoingMessage =
+    | HelloMessage
+    | SetValueMessage
+    | RemoteCommandMessage
+    | OscConfigMessage
+    | OscCommandMessage;

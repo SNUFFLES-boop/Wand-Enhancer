@@ -5,21 +5,29 @@ import type { LibraryGame } from '@/library/model/games';
 import type { EConnectionStatus } from '@/remote-session/remote-session.reducer';
 import { IconButton } from '@/shared/ui/IconButton';
 import type { TrainerSummary } from '../../../protocol/messages';
+import { EPanelView } from '../use-remote-panel';
 import { StatusPill } from './StatusPill';
 
 type TopBarProps = {
     status: EConnectionStatus;
+    view: EPanelView;
     currentGame: LibraryGame | null;
     runningTrainer: TrainerSummary | null;
     onOpenSettings: () => void;
 };
 
-export const TopBar = ({ status, currentGame, runningTrainer, onOpenSettings }: TopBarProps) => {
+export const TopBar = ({
+    status,
+    view,
+    currentGame,
+    runningTrainer,
+    onOpenSettings,
+}: TopBarProps) => {
     const { _ } = useLingui();
 
     return (
         <header className="remote-glass-header sticky top-0 z-20 border-b px-3.5 pb-2.5 pt-3">
-            <div className="flex items-center gap-2.5">
+            <div className="deck-scale deck-content mx-auto flex w-full items-center gap-2.5">
                 <IconButton
                     size="lg"
                     shrink
@@ -29,7 +37,7 @@ export const TopBar = ({ status, currentGame, runningTrainer, onOpenSettings }: 
                 />
                 <div className="min-w-0 flex-1">
                     <div className="font-mono text-[9.5px] font-bold tracking-[0.16em] text-(--deck-fg-4)">
-                        WAND · REMOTE DECK
+                        {view === EPanelView.Osc ? 'WAND · OSC STUDIO' : 'WAND · REMOTE DECK'}
                     </div>
                     <div className="mt-0.5 flex min-w-0 items-center gap-1.5">
                         <span className="min-w-0 truncate text-sm font-semibold text-(--deck-fg)">

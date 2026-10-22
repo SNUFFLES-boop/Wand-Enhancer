@@ -1,14 +1,9 @@
-import type { MessageDescriptor } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react';
 import { Trans } from '@lingui/react/macro';
-import { type FormEvent, useState } from 'react';
+import type { FormEvent } from 'react';
 import { activateLocale, type LocaleCode, SUPPORTED_LOCALES } from '@/app/i18n';
-import {
-    DEFAULT_ACCENT_COLOR,
-    loadAccentColor,
-    setAccentColor,
-} from '@/appearance/appearance-storage';
+import { AppearanceSettings } from '@/appearance/ui/AppearanceSettings';
 import type { LibraryGame } from '@/library/model/games';
 import { EConnectionStatus } from '@/remote-session/remote-session.reducer';
 import { cn } from '@/shared/lib/ui';
@@ -18,16 +13,6 @@ import { WEB_CONTRACT } from '../../../protocol/contract';
 import type { TrainerSummary } from '../../../protocol/messages';
 
 import { StatusPill } from './StatusPill';
-
-const ACCENT_OPTIONS: { value: string; label: MessageDescriptor; swatchClass: string }[] = [
-    { value: '#3B82F6', label: msg`Cobalt`, swatchClass: 'bg-[#3B82F6]' },
-    { value: DEFAULT_ACCENT_COLOR, label: msg`Cyan`, swatchClass: 'bg-[#00FFD5]' },
-    { value: '#FF2E63', label: msg`Crimson`, swatchClass: 'bg-[#FF2E63]' },
-    { value: '#A78BFA', label: msg`Violet`, swatchClass: 'bg-[#A78BFA]' },
-    { value: '#7CFF5B', label: msg`Lime`, swatchClass: 'bg-[#7CFF5B]' },
-    { value: '#FFB12E', label: msg`Amber`, swatchClass: 'bg-[#FFB12E]' },
-    { value: '#ee00ff', label: msg`Magenta`, swatchClass: 'bg-[#ee00ff]' },
-];
 
 type SettingsDrawerProps = {
     status: EConnectionStatus;
@@ -83,8 +68,8 @@ export const SettingsDrawer = ({
                 <SectionHeader title={_(msg`Language`)} />
                 <LanguagePicker />
 
-                <SectionHeader title={_(msg`Accent Color`)} />
-                <AccentPicker />
+                <SectionHeader title={_(msg`Appearance`)} />
+                <AppearanceSettings />
             </div>
         </div>
     );
@@ -216,58 +201,6 @@ const LanguagePicker = () => {
                     </button>
                 );
             })}
-        </div>
-    );
-};
-
-const AccentPicker = () => {
-    const { _ } = useLingui();
-    const [current, setCurrent] = useState(loadAccentColor);
-
-    const applyAccent = (value: string) => {
-        setCurrent(setAccentColor(value));
-    };
-
-    return (
-        <div className="space-y-1.5">
-            <div className="grid grid-cols-3 gap-1.5">
-                {ACCENT_OPTIONS.map((option) => {
-                    const active = current.toLowerCase() === option.value.toLowerCase();
-                    return (
-                        <button
-                            key={option.value}
-                            type="button"
-                            className={cn(
-                                'remote-glass-control flex items-center gap-1.5 rounded-[9px] border px-2 py-2 text-[12px] font-medium',
-                                active
-                                    ? 'border-(--deck-accent) text-(--deck-fg)'
-                                    : 'text-(--deck-fg-3)',
-                            )}
-                            onClick={() => applyAccent(option.value)}
-                        >
-                            <span
-                                className={cn(
-                                    'size-3.5 shrink-0 rounded-lg border border-white/10',
-                                    option.swatchClass,
-                                )}
-                            />
-                            {_(option.label)}
-                        </button>
-                    );
-                })}
-            </div>
-            <label className="remote-glass-control flex h-9.5 items-center gap-2 rounded-[9px] border px-2.5">
-                <span className="flex-1 font-mono text-[11px] font-semibold uppercase tracking-[0.08em] text-(--deck-fg-3)">
-                    <Trans>Custom</Trans>
-                </span>
-                <span className="font-mono text-[11px] text-(--deck-fg-4)">{current}</span>
-                <input
-                    type="color"
-                    value={current}
-                    className="size-5 rounded border-0 bg-transparent p-0"
-                    onChange={(event) => applyAccent(event.currentTarget.value)}
-                />
-            </label>
         </div>
     );
 };

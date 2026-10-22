@@ -46,6 +46,19 @@ export function protocolAction(message: IncomingMessage): RemoteSessionAction | 
                       message:
                           message.payload.error?.message ?? 'The remote game command was rejected.',
                   };
+        case 'osc_state':
+            return { type: 'oscState', payload: message.payload, requestId: message.requestId };
+        case 'osc_status':
+            return { type: 'oscStatus', status: message.payload.status };
+        case 'osc_activity':
+            return { type: 'oscActivity', entries: message.payload.entries };
+        case 'osc_command_result':
+            return {
+                type: 'oscNotice',
+                ok: message.payload.ok,
+                action: message.payload.action,
+                message: message.payload.error?.message ?? null,
+            };
         case 'error':
             return { type: 'error', message: message.payload.message };
     }
